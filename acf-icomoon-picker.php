@@ -65,3 +65,13 @@ function icomoon_picker_admin_notices() {
 }
 
 add_action('admin_notices', 'icomoon_picker_admin_notices');
+
+function addPluginAdminMenu() {
+    $pluginName = 'ACF Icomoon Picker';
+
+    add_menu_page($pluginName , $pluginName, 'administrator', 'acf-icomoon-picker-settings', function () {
+        include dirname(__FILE__) . '/admin/settings.php';
+    }, 'dashicons-chart-area', 82 );
+}
+
+add_action('admin_menu', 'addPluginAdminMenu', 9);
