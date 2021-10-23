@@ -14,64 +14,60 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 // exit if accessed directly
 if( ! defined( 'ABSPATH' ) ) exit;
 
-// check if class already exists
-if( !class_exists('icomoonpicker_acf_plugin_icomoon_picker') ) :
-    class icomoonpicker_acf_plugin_icomoon_picker {
-
-        var $settings;
-
-        function __construct() {
-            $this->settings = array(
-                'version'	=> '1.0.0',
-                'url'		=> plugin_dir_url( __FILE__ ),
-                'path'		=> plugin_dir_path( __FILE__ ),
-            );
-
-
-            // include field
-            add_action('acf/include_field_types', 	array($this, 'include_field')); // v5
-            add_action('acf/register_fields', 		array($this, 'include_field')); // v4
-        }
-
-        function include_field( $version = false ) {
-
-            // support empty $version
-            if( !$version ) $version = 4;
-
-            // load textdomain
-            load_plugin_textdomain( 'acf-icomoon-picker', false, plugin_basename( dirname( __FILE__ ) ) . '/lang' );
-
-            // include
-            include_once('fields/class-icomoonpicker-acf-field-icomoon-field-v' . $version . '.php');
-        }
-    }
-
-    new icomoonpicker_acf_plugin_icomoon_picker();
-endif;
+/**
+ * Currently plugin version.
+ * Start at version 1.0.0 and use SemVer - https://semver.org
+ * Rename this for your plugin and update it as you release new versions.
+ */
+define( 'ACF_ICOMOON_PICKER', '1.0.0' );
 
 /**
- * Function to load admin notices
+ * The code that runs during plugin activation.
+ * This action is documented in includes/class-acf-icomoon-picker-activator.php
  */
-function icomoon_picker_admin_notices() {
-    if (!class_exists('acf')) {
-        deactivate_plugins('acf-icomoon-picker/acf-icomoon-picker.php'); ?>
-
-        <div class="notice error is-dismissible">
-            <p>
-                <?php _e("Can't activate <strong>ACF Icomoon Picker</strong> without <strong>Advanced Custom Field</strong> been activated.", "acf-icomoon-picker"); ?>
-            </p>
-        </div>
-    <?php }
+function activate_acf_icomoon_picker()
+{
+    require_once plugin_dir_path( __FILE__ ) . 'includes/class-acf-icomoon-picker-activator.php';
+    ACF_Icomoon_Picker_Activator::activate();
 }
 
-add_action('admin_notices', 'icomoon_picker_admin_notices');
-
-function addPluginAdminMenu() {
-    $pluginName = 'ACF Icomoon Picker';
-
-    add_menu_page($pluginName , $pluginName, 'administrator', 'acf-icomoon-picker-settings', function () {
-        include dirname(__FILE__) . '/admin/settings.php';
-    }, 'dashicons-chart-area', 82 );
+/**
+ * The code that runs during plugin deactivation.
+ * This action is documented in includes/class-acf-icomoon-picker-deactivator.php
+ */
+function deactivate_acf_icomoon_picker()
+{
+    require_once plugin_dir_path( __FILE__ ) . 'includes/class-acf-icomoon-picker-deactivator.php';
+    ACF_Icomoon_Picker_Deactivator::deactivate();
 }
 
-add_action('admin_menu', 'addPluginAdminMenu', 9);
+register_activation_hook( __FILE__, 'activate_acf_icomoon_picker' );
+register_deactivation_hook( __FILE__, 'deactivate_acf_icomoon_picker' );
+
+/**
+ * The core plugin class that is used to define internationalization,
+ * admin-specific hooks, and public-facing site hooks.
+ */
+require plugin_dir_path( __FILE__ ) . 'includes/class-acf-icomoon-picker.php';
+
+if ( !class_exists('acf_icomoon_picker_plugin') ) {
+    require_once plugin_dir_path(__FILE__) . 'includes/core/acf-icomoon-picker.php';
+    new acf_icomoon_picker_plugin();
+}
+
+/**
+ * Begins execution of the plugin.
+ *
+ * Since everything within the plugin is registered via hooks,
+ * then kicking off the plugin from this point in the file does
+ * not affect the page life cycle.
+ *
+ * @since    1.0.0
+ */
+function run_acf_icomoon_picker()
+{
+    $plugin = new ACF_Icomoon_Picker();
+    $plugin->run();
+}
+
+run_acf_icomoon_picker();

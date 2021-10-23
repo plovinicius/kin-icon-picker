@@ -3,19 +3,13 @@
 // exit if accessed directly
 if( ! defined( 'ABSPATH' ) ) exit;
 
-
 // check if class already exists
 if( !class_exists('icomoonpicker_acf_field_icomoon_picker') ) :
 
-
-class icomoonpicker_acf_field_icomoon_picker extends acf_field {
-
-    protected $pluginPath;
+class icomoonpicker_acf_field_icomoon_picker extends acf_field
+{
 	
 	function __construct( $settings ) {
-
-        $this->pluginPath = plugins_url() .'/acf-icomoon-picker';
-		
 		/*
 		*  name (string) Single word, no spaces. Underscores allowed
 		*/
@@ -133,7 +127,7 @@ class icomoonpicker_acf_field_icomoon_picker extends acf_field {
 	
 	function input_admin_enqueue_scripts()
     {
-        $url = $this->settings['url'];
+        $url = $this->settings['url'] .'../../';
 		$version = $this->settings['version'];
 
         wp_register_script('vendor-js', "{$url}assets/js/vendor.min.js", array('jquery'), $version, true);
@@ -142,7 +136,7 @@ class icomoonpicker_acf_field_icomoon_picker extends acf_field {
         // Register main js file to be enqueued
         wp_register_script('app-js', "{$url}assets/js/app.min.js", array('jquery'), $version, true);
 
-        $request = wp_remote_get( $this->pluginPath .'/assets/fonts/icomoon/selection.json' );
+        $request = wp_remote_get( "{$url}assets/fonts/icomoon/selection.json" );
 
         if( is_wp_error( $request ) ) {
             return false; // Bail early
