@@ -9,8 +9,12 @@ if( !class_exists('icomoonpicker_acf_field_icomoon_picker') ) :
 
 
 class icomoonpicker_acf_field_icomoon_picker extends acf_field {
+
+    protected $pluginPath;
 	
 	function __construct( $settings ) {
+
+        $this->pluginPath = plugins_url() .'/acf-icomoon-picker';
 		
 		/*
 		*  name (string) Single word, no spaces. Underscores allowed
@@ -131,10 +135,6 @@ class icomoonpicker_acf_field_icomoon_picker extends acf_field {
     {
         $url = $this->settings['url'];
 		$version = $this->settings['version'];
-        $directory = trailingslashit( get_template_directory_uri() .'/assets/fonts/icomoon/' );
-
-        // Define the URL
-        $jsonPath = $directory . 'selection.json';
 
         wp_register_script('vendor-js', "{$url}assets/js/vendor.min.js", array('jquery'), $version, true);
         wp_enqueue_script( 'vendor-js' );
@@ -142,10 +142,8 @@ class icomoonpicker_acf_field_icomoon_picker extends acf_field {
         // Register main js file to be enqueued
         wp_register_script('app-js', "{$url}assets/js/app.min.js", array('jquery'), $version, true);
 
-        // Make the request
-        $request = wp_remote_get( $jsonPath );
+        $request = wp_remote_get( $this->pluginPath .'/assets/fonts/icomoon/selection.json' );
 
-        // If the remote request fails, wp_remote_get() will return a WP_Error, so let’s check if the $request variable is an error:
         if( is_wp_error( $request ) ) {
             return false; // Bail early
         }
