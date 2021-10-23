@@ -10,75 +10,47 @@ if( !class_exists('icomoonpicker_acf_field_icomoon_picker') ) :
 
 class icomoonpicker_acf_field_icomoon_picker extends acf_field {
 	
-	
-	/*
-	*  __construct
-	*
-	*  This function will setup the field type data
-	*
-	*  @type	function
-	*  @date	5/03/2014
-	*  @since	5.0.0
-	*
-	*  @param	n/a
-	*  @return	n/a
-	*/
-	
 	function __construct( $settings ) {
 		
 		/*
 		*  name (string) Single word, no spaces. Underscores allowed
 		*/
-		
 		$this->name = 'icomoon_picker';
-		
-		
+
 		/*
 		*  label (string) Multiple words, can include spaces, visible when selecting a field type
 		*/
-		
 		$this->label = __('Icomoon Picker', 'acf-icomoon-picker');
-		
-		
+
 		/*
 		*  category (string) basic | content | choice | relational | jquery | layout | CUSTOM GROUP NAME
 		*/
-		
-		$this->category = 'basic';
-		
-		
+		$this->category = 'content';
+
 		/*
 		*  defaults (array) Array of default settings which are merged into the field object. These are used later in settings
 		*/
-		
-		$this->defaults = array(
-			'font_size'	=> 14,
-		);
-		
-		
+		$this->defaults = array();
+
 		/*
 		*  l10n (array) Array of strings that are used in JavaScript. This allows JS strings to be translated in PHP and loaded via:
 		*  var message = acf._e('icomoon_picker', 'error');
 		*/
-		
 		$this->l10n = array(
 			'error'	=> __('Error! Please enter a higher value', 'acf-icomoon-picker'),
 		);
-		
-		
+
 		/*
 		*  settings (array) Store plugin settings (url, path, version) as a reference for later use with assets
 		*/
 		
 		$this->settings = $settings;
 		
-		
 		// do not delete!
     	parent::__construct();
     	
 	}
-	
-	
+
 	/*
 	*  render_field_settings()
 	*
@@ -91,9 +63,8 @@ class icomoonpicker_acf_field_icomoon_picker extends acf_field {
 	*  @param	$field (array) the $field being edited
 	*  @return	n/a
 	*/
-	
+
 	function render_field_settings( $field ) {
-		
 		/*
 		*  acf_render_field_setting
 		*
@@ -103,19 +74,15 @@ class icomoonpicker_acf_field_icomoon_picker extends acf_field {
 		*  More than one setting can be added by copy/paste the above code.
 		*  Please note that you must also have a matching $defaults value for the field name (font_size)
 		*/
-		
-		acf_render_field_setting( $field, array(
-			'label'			=> __('Font Size','acf-icomoon-picker'),
-			'instructions'	=> __('Customise the input font size','acf-icomoon-picker'),
-			'type'			=> 'number',
-			'name'			=> 'font_size',
-			'prepend'		=> 'px',
-		));
+//		acf_render_field_setting( $field, array(
+//			'label'			=> __('Font Size','acf-icomoon-picker'),
+//			'instructions'	=> __('Customise the input font size','acf-icomoon-picker'),
+//			'type'			=> 'number',
+//			'name'			=> 'font_size',
+//		));
 
 	}
-	
-	
-	
+
 	/*
 	*  render_field()
 	*
@@ -130,30 +97,22 @@ class icomoonpicker_acf_field_icomoon_picker extends acf_field {
 	*  @param	$field (array) the $field being edited
 	*  @return	n/a
 	*/
-	
-	function render_field( $field ) {
-		
-		
-		/*
-		*  Review the data of $field.
-		*  This will show what data is available
-		*/
-		
-		echo '<pre>';
-			print_r( $field );
-		echo '</pre>';
-		
-		
-		/*
-		*  Create a simple text input using the 'font_size' setting.
-		*/
-		
-		?>
-		<input type="text" name="<?php echo esc_attr($field['name']) ?>" value="<?php echo esc_attr($field['value']) ?>" style="font-size:<?php echo $field['font_size'] ?>px;" />
-		<?php
-	}
-	
-		
+
+	function render_field( $field ) { ?>
+
+        <div class="icomoon-picker__control">
+            <label class="icomoon-picker__label">
+                <select class="icomoon-picker-select2" name="<?php echo esc_attr($field['name']); ?>"
+                    data-selected="<?php echo esc_attr($field['value']); ?>">
+                    <option value="" selected>
+                        <?php _e('Select', 'acf-icomoon-picker'); ?>
+                    </option>
+                </select>
+            </label>
+        </div>
+
+    <?php }
+
 	/*
 	*  input_admin_enqueue_scripts()
 	*
@@ -167,29 +126,49 @@ class icomoonpicker_acf_field_icomoon_picker extends acf_field {
 	*  @param	n/a
 	*  @return	n/a
 	*/
-
-	/*
 	
-	function input_admin_enqueue_scripts() {
-		
-		// vars
-		$url = $this->settings['url'];
+	function input_admin_enqueue_scripts()
+    {
+        $url = $this->settings['url'];
 		$version = $this->settings['version'];
-		
-		
-		// register & include JS
-		wp_register_script('acf-icomoon-picker', "{$url}assets/js/input.js", array('acf-input'), $version);
-		wp_enqueue_script('acf-icomoon-picker');
-		
-		
+        $directory = trailingslashit( get_template_directory_uri() .'/assets/fonts/icomoon/' );
+
+        // Define the URL
+        $jsonPath = $directory . 'selection.json';
+
+        wp_register_script('vendor-js', "{$url}assets/js/vendor.min.js", array('jquery'), $version, true);
+        wp_enqueue_script( 'vendor-js' );
+
+        // Register main js file to be enqueued
+        wp_register_script('app-js', "{$url}assets/js/app.min.js", array('jquery'), $version, true);
+
+        // Make the request
+        $request = wp_remote_get( $jsonPath );
+
+        // If the remote request fails, wp_remote_get() will return a WP_Error, so let’s check if the $request variable is an error:
+        if( is_wp_error( $request ) ) {
+            return false; // Bail early
+        }
+
+        // Retrieve the data
+        $body = wp_remote_retrieve_body( $request );
+        $data = json_decode( $body );
+
+        // Localize script exposing $data contents
+        wp_localize_script( 'app-js', 'icomoonJSON', [
+            'full_data' => $data
+        ]);
+
+        // Enqueues main js file
+        wp_enqueue_script( 'app-js' );
+
 		// register & include CSS
-		wp_register_style('acf-icomoon-picker', "{$url}assets/css/input.css", array('acf-input'), $version);
+        wp_register_style('acf-icomoon-css', "{$url}assets/fonts/icomoon/style.css", array(), $version);
+        wp_enqueue_style('acf-icomoon-css');
+
+		wp_register_style('acf-icomoon-picker', "{$url}assets/css/style.css", array(), $version);
 		wp_enqueue_style('acf-icomoon-picker');
-		
 	}
-	
-	*/
-	
 	
 	/*
 	*  input_admin_head()
