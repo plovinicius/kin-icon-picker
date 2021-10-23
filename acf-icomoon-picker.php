@@ -1,7 +1,7 @@
 <?php
 
 /*
-Plugin Name: Advanced Custom Fields: Icomoon Picker
+Plugin Name: ACF Icomoon Picker
 Plugin URI: https://github.com/plovinicius/acf-icomoon-picker
 Description: Powerful plugin to add Icomoon support to plugin Advanced Custom Fields (ACF)
 Version: 1.0.0
@@ -13,7 +13,6 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 // exit if accessed directly
 if( ! defined( 'ABSPATH' ) ) exit;
-
 
 // check if class already exists
 if( !class_exists('icomoonpicker_acf_plugin_icomoon_picker') ) :
@@ -49,3 +48,20 @@ if( !class_exists('icomoonpicker_acf_plugin_icomoon_picker') ) :
 
     new icomoonpicker_acf_plugin_icomoon_picker();
 endif;
+
+/**
+ * Function to load admin notices
+ */
+function icomoon_picker_admin_notices() {
+    if (!class_exists('acf')) {
+        deactivate_plugins('acf-icomoon-picker/acf-icomoon-picker.php'); ?>
+
+        <div class="notice error is-dismissible">
+            <p>
+                <?php _e("Can't activate <strong>ACF Icomoon Picker</strong> without <strong>Advanced Custom Field</strong> been activated.", "acf-icomoon-picker"); ?>
+            </p>
+        </div>
+    <?php }
+}
+
+add_action('admin_notices', 'icomoon_picker_admin_notices');
