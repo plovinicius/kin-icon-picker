@@ -1,0 +1,5 @@
+.icomoon-picker__control{width:100%;display:none}
+.icomoon-picker-dropdown__option>span,.icomoon-picker-dropdown__results .select2-results__option>span,.icomoon-picker-dropdown__container .select2-selection__rendered>span{display:-webkit-box;display:-ms-flexbox;display:flex;width:100%;-webkit-box-align:center;-ms-flex-align:center;align-items:center}
+.icomoon-picker-dropdown__option i,.icomoon-picker-dropdown__results .select2-results__option i,.icomoon-picker-dropdown__container .select2-selection__rendered i{width:30px;height:30px;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;border:1px solid #ccc;margin-right:10px;border-radius:4px}
+.icomoon-picker-dropdown__container{height:auto !important;padding:5px 0}
+.icomoon-picker-dropdown__container .select2-selection__arrow{top:10px !important;right:5px !important}
