@@ -8,6 +8,8 @@ if( !class_exists('icomoonpicker_acf_field_icomoon_picker') ) :
 
 class icomoonpicker_acf_field_icomoon_picker extends acf_field
 {
+
+    protected $uploaded_config;
 	
 	function __construct( $settings ) {
 		/*
@@ -29,6 +31,14 @@ class icomoonpicker_acf_field_icomoon_picker extends acf_field
 		*  defaults (array) Array of default settings which are merged into the field object. These are used later in settings
 		*/
 		$this->defaults = array();
+
+        // FIXME: refactor this path, remove duplicated code
+        $destination = wp_upload_dir();
+        $this->uploaded_config = [
+            'path' => $destination['basedir'] .'/acf-icomoon-picker/settings',
+            'url' => $destination['baseurl'] .'/acf-icomoon-picker/settings'
+        ];
+        // ----------------------------------------------------------------------
 
 		/*
 		*  l10n (array) Array of strings that are used in JavaScript. This allows JS strings to be translated in PHP and loaded via:
@@ -136,15 +146,10 @@ class icomoonpicker_acf_field_icomoon_picker extends acf_field
         // Register main js file to be enqueued
         wp_register_script('app-js', "{$url}assets/js/app.min.js", array('jquery'), $version, true);
 
-        $request = wp_remote_get( "{$url}assets/fonts/icomoon/selection.json" );
-
-        if( is_wp_error( $request ) ) {
-            return false; // Bail early
-        }
-
-        // Retrieve the data
-        $body = wp_remote_retrieve_body( $request );
-        $data = json_decode( $body );
+        ob_start();
+        include "{$this->uploaded_config['path']}/selection.json";
+        $contents = ob_get_clean();
+        $data = json_decode( $contents );
 
         // Localize script exposing $data contents
         wp_localize_script( 'app-js', 'icomoonJSON', [
@@ -155,7 +160,7 @@ class icomoonpicker_acf_field_icomoon_picker extends acf_field
         wp_enqueue_script( 'app-js' );
 
 		// register & include CSS
-        wp_register_style('acf-icomoon-css', "{$url}assets/fonts/icomoon/style.css", array(), $version);
+        wp_register_style('acf-icomoon-css', "{$this->uploaded_config['url']}/style.css", array(), $version);
         wp_enqueue_style('acf-icomoon-css');
 
 		wp_register_style('acf-icomoon-picker', "{$url}assets/css/style.css", array(), $version);

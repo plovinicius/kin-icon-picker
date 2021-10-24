@@ -30,6 +30,5 @@ class ACF_Icomoon_Picker_Activator
      */
     public static function activate()
     {
-
     }
 }

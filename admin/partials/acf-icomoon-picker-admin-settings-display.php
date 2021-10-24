@@ -1,32 +1,48 @@
 <?php
+    $uploadedPath = get_option('acf_icomoon_picker_config_file');
+    $files = [];
 
-/**
- * Provide a admin area view for the plugin
- *
- * This file is used to markup the admin-facing aspects of the plugin.
- *
- * @since      1.0.0
- * @package    ACF_Icomoon_Picker
- * @subpackage ACF_Icomoon_Picker/admin/partials
- */
+    if (is_dir($uploadedPath)) {
+        $files = list_files($uploadedPath);
+    }
 ?>
-<!-- This file should primarily consist of HTML with a little bit of PHP. -->
+
 <div class="wrap">
-    <h2>
+    <h1>
         <?php _e('ACF Icomoon Picker - Settings', 'acf-icomoon-picker'); ?>
-    </h2>
+    </h1>
 
     <!-- NEED THE settings_errors below so that the errors/success messages are shown after submission - wasn't working
-        once we started using add_menu_page and stopped using add_options_page so needed this
-        -->
+        once we started using add_menu_page and stopped using add_options_page so needed this -->
     <?php settings_errors(); ?>
 
-    <form method="POST" action="options.php">
+    <form method="POST" action="options.php" enctype="multipart/form-data">
         <?php
             settings_fields( 'acf_icomoon_picker_general_settings' );
             do_settings_sections( 'acf_icomoon_picker_general_settings' );
-
-            submit_button();
         ?>
+
+        <div>
+            <div>
+                <label for="acf_icomoon_picker_config_file">
+                    <?php _e('Icomoon files (.zip)', 'acf-icomoon-picker'); ?>
+                </label>
+
+                <input id="acf_icomoon_picker_config_file" type="file" name="acf_icomoon_picker_config_file"
+                       value="<?php echo esc_attr( get_option('new_option_name') ); ?>" />
+            </div>
+
+            <div>
+                <ul>
+                    <?php foreach($files as $file): ?>
+                        <li>
+                            <?php echo str_replace($uploadedPath, "", $file); ?>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        </div>
+
+      <?php submit_button(); ?>
     </form>
 </div>
