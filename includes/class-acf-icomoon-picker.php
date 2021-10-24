@@ -78,7 +78,7 @@ class ACF_Icomoon_Picker
         $this->load_dependencies();
         $this->set_locale();
         $this->define_admin_hooks();
-//        $this->define_public_hooks();
+        $this->define_public_hooks();
     }
 
     /**
@@ -121,7 +121,7 @@ class ACF_Icomoon_Picker
          * The class responsible for defining all actions that occur in the public-facing
          * side of the site.
          */
-//        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-acf-icomoon-picker-public.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-acf-icomoon-picker-public.php';
 
         $this->loader = new ACF_Icomoon_Picker_Loader();
 
@@ -155,8 +155,8 @@ class ACF_Icomoon_Picker
 
         $plugin_admin = new ACF_Icomoon_Picker_Admin( $this->get_plugin_name(), $this->get_version() );
 
-//        $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-//        $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+        $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
+        $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
     }
 

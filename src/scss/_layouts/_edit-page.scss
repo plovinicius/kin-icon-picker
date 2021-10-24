@@ -1,0 +1,40 @@
+.icomoon-picker__control {
+  width: 100%;
+  display: none;
+}
+
+.icomoon-picker-dropdown__option {
+  > span {
+	display: flex;
+	width: 100%;
+	align-items: center;
+  }
+
+  i {
+	width: 30px;
+	height: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid #ccc;
+	margin-right: 10px;
+	border-radius: 4px;
+  }
+}
+
+.icomoon-picker-dropdown {
+  &__results .select2-results__option,
+  &__container .select2-selection__rendered {
+	@extend .icomoon-picker-dropdown__option;
+  }
+
+  &__container {
+	height: auto !important;
+	padding: 5px 0;
+
+	.select2-selection__arrow {
+	  top: 10px !important;
+	  right: 5px !important;
+	}
+  }
+}

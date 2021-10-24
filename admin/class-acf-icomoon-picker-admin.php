@@ -30,7 +30,9 @@ class ACF_Icomoon_Picker_Admin {
      */
     private $version;
 
-    private $uploaded_config_path;
+    private $uploaded_config;
+
+    private $assetsUrl;
 
     /**
      * Initialize the class and set its properties.
@@ -43,8 +45,12 @@ class ACF_Icomoon_Picker_Admin {
     {
         // FIXME: refactor this path, remove duplicated code
         $destination = wp_upload_dir();
-        $uploadsPath = $destination['basedir'];
-        $this->uploaded_config_path = $uploadsPath .'/acf-icomoon-picker/settings';
+        $this->uploaded_config = [
+            'path' => $destination['basedir'] .'/acf-icomoon-picker/settings',
+            'url' => $destination['baseurl'] .'/acf-icomoon-picker/settings'
+        ];
+
+        $this->assetsUrl = plugin_dir_url( __FILE__ ) .'../assets/';
         // ----------------------------------------------------------------------
 
         $this->plugin_name = $plugin_name;
@@ -75,7 +81,8 @@ class ACF_Icomoon_Picker_Admin {
          * class.
          */
 
-        wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/settings-page-admin.css', array(), $this->version, 'all' );
+        wp_enqueue_style( $this->plugin_name, "{$this->assetsUrl}css/admin.css", array(), $this->version, 'all' );
+        wp_enqueue_style( 'acf-icomoon-css', "{$this->uploaded_config['url']}/style.css", array(), $this->version, 'all' );
     }
 
     /**
@@ -97,13 +104,30 @@ class ACF_Icomoon_Picker_Admin {
          * class.
          */
 
-        wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/settings-page-admin.js', array( 'jquery' ), $this->version, false );
+        wp_register_script('vendor-js', "{$this->assetsUrl}js/vendor.min.js", array('jquery'), $this->version, true);
+        wp_enqueue_script( 'vendor-js' );
+
+        // Register main js file to be enqueued
+        wp_register_script('app-js', "{$this->assetsUrl}js/app.min.js", array('jquery'), $this->version, true);
+
+        ob_start();
+        include "{$this->uploaded_config['path']}/selection.json";
+        $contents = ob_get_clean();
+        $data = json_decode( $contents );
+
+        // Localize script exposing $data contents
+        wp_localize_script( 'app-js', 'icomoonJSON', [
+            'full_data' => $data
+        ]);
+
+        // Enqueues main js file
+        wp_enqueue_script( 'app-js' );
     }
 
     public function checkIfAcfIsActivated()
     {
-        if (!is_dir($this->uploaded_config_path)) {
-            mkdir($this->uploaded_config_path, 0775, true);
+        if (!is_dir($this->uploaded_config['path'])) {
+            mkdir($this->uploaded_config['path'], 0775, true);
         }
 
         if (!class_exists('acf')) {
@@ -125,7 +149,7 @@ class ACF_Icomoon_Picker_Admin {
             'administrator',
             $this->plugin_name,
             array( $this, 'displayPluginAdminSettings' ),
-            'dashicons-admin-generic',
+            'dashicons-welcome-widgets-menus',
             82
         );
     }

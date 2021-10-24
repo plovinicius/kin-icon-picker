@@ -8,8 +8,6 @@ if( !class_exists('icomoonpicker_acf_field_icomoon_picker') ) :
 
 class icomoonpicker_acf_field_icomoon_picker extends acf_field
 {
-
-    protected $uploaded_config;
 	
 	function __construct( $settings ) {
 		/*
@@ -31,13 +29,6 @@ class icomoonpicker_acf_field_icomoon_picker extends acf_field
 		*  defaults (array) Array of default settings which are merged into the field object. These are used later in settings
 		*/
 		$this->defaults = array();
-
-        // FIXME: refactor this path, remove duplicated code
-        $destination = wp_upload_dir();
-        $this->uploaded_config = [
-            'path' => $destination['basedir'] .'/acf-icomoon-picker/settings',
-            'url' => $destination['baseurl'] .'/acf-icomoon-picker/settings'
-        ];
         // ----------------------------------------------------------------------
 
 		/*
@@ -120,176 +111,6 @@ class icomoonpicker_acf_field_icomoon_picker extends acf_field
         </div>
 
     <?php }
-
-	/*
-	*  input_admin_enqueue_scripts()
-	*
-	*  This action is called in the admin_enqueue_scripts action on the edit screen where your field is created.
-	*  Use this action to add CSS + JavaScript to assist your render_field() action.
-	*
-	*  @type	action (admin_enqueue_scripts)
-	*  @since	3.6
-	*  @date	23/01/13
-	*
-	*  @param	n/a
-	*  @return	n/a
-	*/
-	
-	function input_admin_enqueue_scripts()
-    {
-        $url = $this->settings['url'] .'../../';
-		$version = $this->settings['version'];
-
-        wp_register_script('vendor-js', "{$url}assets/js/vendor.min.js", array('jquery'), $version, true);
-        wp_enqueue_script( 'vendor-js' );
-
-        // Register main js file to be enqueued
-        wp_register_script('app-js', "{$url}assets/js/app.min.js", array('jquery'), $version, true);
-
-        ob_start();
-        include "{$this->uploaded_config['path']}/selection.json";
-        $contents = ob_get_clean();
-        $data = json_decode( $contents );
-
-        // Localize script exposing $data contents
-        wp_localize_script( 'app-js', 'icomoonJSON', [
-            'full_data' => $data
-        ]);
-
-        // Enqueues main js file
-        wp_enqueue_script( 'app-js' );
-
-		// register & include CSS
-        wp_register_style('acf-icomoon-css', "{$this->uploaded_config['url']}/style.css", array(), $version);
-        wp_enqueue_style('acf-icomoon-css');
-
-		wp_register_style('acf-icomoon-picker', "{$url}assets/css/style.css", array(), $version);
-		wp_enqueue_style('acf-icomoon-picker');
-	}
-	
-	/*
-	*  input_admin_head()
-	*
-	*  This action is called in the admin_head action on the edit screen where your field is created.
-	*  Use this action to add CSS and JavaScript to assist your render_field() action.
-	*
-	*  @type	action (admin_head)
-	*  @since	3.6
-	*  @date	23/01/13
-	*
-	*  @param	n/a
-	*  @return	n/a
-	*/
-
-	/*
-		
-	function input_admin_head() {
-	
-		
-		
-	}
-	
-	*/
-	
-	
-	/*
-   	*  input_form_data()
-   	*
-   	*  This function is called once on the 'input' page between the head and footer
-   	*  There are 2 situations where ACF did not load during the 'acf/input_admin_enqueue_scripts' and 
-   	*  'acf/input_admin_head' actions because ACF did not know it was going to be used. These situations are
-   	*  seen on comments / user edit forms on the front end. This function will always be called, and includes
-   	*  $args that related to the current screen such as $args['post_id']
-   	*
-   	*  @type	function
-   	*  @date	6/03/2014
-   	*  @since	5.0.0
-   	*
-   	*  @param	$args (array)
-   	*  @return	n/a
-   	*/
-   	
-   	/*
-   	
-   	function input_form_data( $args ) {
-	   	
-		
-	
-   	}
-   	
-   	*/
-	
-	
-	/*
-	*  input_admin_footer()
-	*
-	*  This action is called in the admin_footer action on the edit screen where your field is created.
-	*  Use this action to add CSS and JavaScript to assist your render_field() action.
-	*
-	*  @type	action (admin_footer)
-	*  @since	3.6
-	*  @date	23/01/13
-	*
-	*  @param	n/a
-	*  @return	n/a
-	*/
-
-	/*
-		
-	function input_admin_footer() {
-	
-		
-		
-	}
-	
-	*/
-	
-	
-	/*
-	*  field_group_admin_enqueue_scripts()
-	*
-	*  This action is called in the admin_enqueue_scripts action on the edit screen where your field is edited.
-	*  Use this action to add CSS + JavaScript to assist your render_field_options() action.
-	*
-	*  @type	action (admin_enqueue_scripts)
-	*  @since	3.6
-	*  @date	23/01/13
-	*
-	*  @param	n/a
-	*  @return	n/a
-	*/
-
-	/*
-	
-	function field_group_admin_enqueue_scripts() {
-		
-	}
-	
-	*/
-
-	
-	/*
-	*  field_group_admin_head()
-	*
-	*  This action is called in the admin_head action on the edit screen where your field is edited.
-	*  Use this action to add CSS and JavaScript to assist your render_field_options() action.
-	*
-	*  @type	action (admin_head)
-	*  @since	3.6
-	*  @date	23/01/13
-	*
-	*  @param	n/a
-	*  @return	n/a
-	*/
-
-	/*
-	
-	function field_group_admin_head() {
-	
-	}
-	
-	*/
-
 
 	/*
 	*  load_value()
