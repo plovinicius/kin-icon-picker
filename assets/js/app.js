@@ -31,3 +31,22 @@
     return $('<span><i class="icon-' + icon.id + '"></i> ' + icon.text + '</span>');
   }
 })(jQuery);
+"use strict";
+
+(function ($) {
+  $('#acf_icomoon_picker_config_file').on('change', function (e) {
+    e.preventDefault();
+    var $input = $(this);
+    var $parent = $input.closest('.acf-icomoon-picker__form__upload');
+    var $filename = $parent.find('.filename');
+    $filename.html('');
+
+    if (!$input.val()) {
+      $parent.removeClass('uploaded');
+    }
+
+    var filenameSplit = $input.val().split("\\");
+    $filename.html(filenameSplit[filenameSplit.length - 1]);
+    $parent.addClass('uploaded');
+  });
+})(jQuery);

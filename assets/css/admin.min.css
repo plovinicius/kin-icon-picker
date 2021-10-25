@@ -3,7 +3,7 @@
 .acf-icomoon-picker__header{background:#fff;margin-left:-20px;display:-webkit-box;display:-ms-flexbox;display:flex;padding:10px 0 10px 20px;margin-bottom:20px}
 .acf-icomoon-picker__header h2{font-size:14px;line-height:20px;display:inline-block;padding:5px 20px;margin:0 10px 0 0}
 .acf-icomoon-picker__container{width:100%;padding:0 20px}
-.acf-icomoon-picker__files{display:inline-block;min-width:400px}
+.acf-icomoon-picker__files{display:inline-block;max-width:100%;width:400px}
 .acf-icomoon-picker__files ul{display:-webkit-box;display:-ms-flexbox;display:flex;list-style:none;margin:0;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;background:#ccc;padding:10px 20px 5px}
 .acf-icomoon-picker__files ul li{font-weight:500;margin:5px 0}
 .icomoon-picker__control{width:100%;display:none}
@@ -17,3 +17,6 @@
 .acf-icomoon-picker__form__upload{display:inline-block;position:relative}
 .acf-icomoon-picker__form__upload label{display:block;background:#f6f7f7;color:#2271b1;padding:10px 40px;font-weight:500;border:1px solid #2271b1;border-radius:4px}
 .acf-icomoon-picker__form__upload input[type="file"]{position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;opacity:0}
+.acf-icomoon-picker__form__upload-filename{display:none}
+.acf-icomoon-picker__form__upload.uploaded .acf-icomoon-picker__form__upload-filename{display:block}
+.acf-icomoon-picker__form__upload.uploaded .acf-icomoon-picker__form__upload-text{display:none}

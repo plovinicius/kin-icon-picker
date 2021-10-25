@@ -37,12 +37,15 @@
                     <div class="acf-icomoon-picker__form-col">
                         <div class="acf-icomoon-picker__form__upload">
                             <label for="acf_icomoon_picker_config_file">
-                                <input id="acf_icomoon_picker_config_file" type="file" name="acf_icomoon_picker_config_file"
+                                <input id="acf_icomoon_picker_config_file" type="file" accept=".zip"
+                                   name="acf_icomoon_picker_config_file"
                                    value="<?php echo esc_attr( get_option('new_option_name') ); ?>" />
 
-                                <span>
+                                <span class="acf-icomoon-picker__form__upload-text text">
                                     <?php _e('Update Icomoon files (.zip)', 'acf-icomoon-picker'); ?>
                                 </span>
+
+                                <span class="acf-icomoon-picker__form__upload-filename filename"></span>
                             </label>
                         </div>
                     </div>

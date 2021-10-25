@@ -42,5 +42,19 @@
 	  z-index: 2;
 	  opacity: 0;
 	}
+
+	&-filename {
+	  display: none;
+	}
+
+	&.uploaded {
+	  .acf-icomoon-picker__form__upload-filename {
+		display: block;
+	  }
+
+	  .acf-icomoon-picker__form__upload-text {
+		display: none;
+	  }
+	}
   }
 }
