@@ -16,7 +16,7 @@ class ACF_Icomoon_Picker_i18n
      *
      * @since    1.0.0
      */
-    public function load_plugin_textdomain()
+    public function loadPluginTextdomain()
     {
         load_plugin_textdomain( 'acf-icomoon-picker', false, plugin_basename( dirname( __FILE__ ) ) . '/lang' );
     }

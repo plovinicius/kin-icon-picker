@@ -14,18 +14,13 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 // exit if accessed directly
 if( ! defined( 'ABSPATH' ) ) exit;
 
-/**
- * Currently plugin version.
- * Start at version 1.0.0 and use SemVer - https://semver.org
- * Rename this for your plugin and update it as you release new versions.
- */
 define( 'ACF_ICOMOON_PICKER', '1.0.0' );
 
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-acf-icomoon-picker-activator.php
  */
-function activate_acf_icomoon_picker()
+function activateAcfIcomoonPicker()
 {
     require_once plugin_dir_path( __FILE__ ) . 'includes/class-acf-icomoon-picker-activator.php';
     ACF_Icomoon_Picker_Activator::activate();
@@ -35,14 +30,14 @@ function activate_acf_icomoon_picker()
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-acf-icomoon-picker-deactivator.php
  */
-function deactivate_acf_icomoon_picker()
+function deactivateAcfIcomoonPicker()
 {
     require_once plugin_dir_path( __FILE__ ) . 'includes/class-acf-icomoon-picker-deactivator.php';
     ACF_Icomoon_Picker_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_acf_icomoon_picker' );
-register_deactivation_hook( __FILE__, 'deactivate_acf_icomoon_picker' );
+register_activation_hook( __FILE__, 'activateAcfIcomoonPicker' );
+register_deactivation_hook( __FILE__, 'deactivateAcfIcomoonPicker' );
 
 /**
  * The core plugin class that is used to define internationalization,
@@ -50,7 +45,7 @@ register_deactivation_hook( __FILE__, 'deactivate_acf_icomoon_picker' );
  */
 require plugin_dir_path( __FILE__ ) . 'includes/class-acf-icomoon-picker.php';
 
-if ( !class_exists('acf_icomoon_picker_plugin') ) {
+if (! class_exists('acf_icomoon_picker_plugin')) {
     require_once plugin_dir_path(__FILE__) . 'includes/core/acf-icomoon-picker.php';
     new acf_icomoon_picker_plugin();
 }
@@ -64,10 +59,10 @@ if ( !class_exists('acf_icomoon_picker_plugin') ) {
  *
  * @since    1.0.0
  */
-function run_acf_icomoon_picker()
+function runAcfIcomoonPicker()
 {
     $plugin = new ACF_Icomoon_Picker();
     $plugin->run();
 }
 
-run_acf_icomoon_picker();
+runAcfIcomoonPicker();

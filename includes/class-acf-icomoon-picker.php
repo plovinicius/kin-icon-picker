@@ -27,7 +27,6 @@
  */
 class ACF_Icomoon_Picker
 {
-
     /**
      * The loader that's responsible for maintaining and registering all hooks that power
      * the plugin.
@@ -75,10 +74,10 @@ class ACF_Icomoon_Picker
 
         $this->plugin_name = 'acf-icomoon-picker';
 
-        $this->load_dependencies();
-        $this->set_locale();
-        $this->define_admin_hooks();
-        $this->define_public_hooks();
+        $this->loadDependencies();
+        $this->setLocale();
+        $this->defineAdminHooks();
+        $this->definePublicHooks();
     }
 
     /**
@@ -97,9 +96,8 @@ class ACF_Icomoon_Picker
      * @since    1.0.0
      * @access   private
      */
-    private function load_dependencies()
+    private function loadDependencies()
     {
-
         /**
          * The class responsible for orchestrating the actions and filters of the
          * core plugin.
@@ -124,7 +122,6 @@ class ACF_Icomoon_Picker
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-acf-icomoon-picker-public.php';
 
         $this->loader = new ACF_Icomoon_Picker_Loader();
-
     }
 
     /**
@@ -136,11 +133,11 @@ class ACF_Icomoon_Picker
      * @since    1.0.0
      * @access   private
      */
-    private function set_locale()
+    private function setLocale()
     {
         $plugin_i18n = new ACF_Icomoon_Picker_i18n();
 
-        $this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
+        $this->loader->addAction( 'plugins_loaded', $plugin_i18n, 'loadPluginTextdomain' );
     }
 
     /**
@@ -150,13 +147,13 @@ class ACF_Icomoon_Picker
      * @since    1.0.0
      * @access   private
      */
-    private function define_admin_hooks()
+    private function defineAdminHooks()
     {
 
-        $plugin_admin = new ACF_Icomoon_Picker_Admin( $this->get_plugin_name(), $this->get_version() );
+        $plugin_admin = new ACF_Icomoon_Picker_Admin( $this->getPluginName(), $this->getVersion() );
 
-        $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-        $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+        $this->loader->addAction( 'admin_enqueue_scripts', $plugin_admin, 'enqueueStyles' );
+        $this->loader->addAction( 'admin_enqueue_scripts', $plugin_admin, 'enqueueScripts' );
 
     }
 
@@ -167,12 +164,12 @@ class ACF_Icomoon_Picker
      * @since    1.0.0
      * @access   private
      */
-    private function define_public_hooks()
+    private function definePublicHooks()
     {
-        $plugin_public = new ACF_Icomoon_Picker_Public( $this->get_plugin_name(), $this->get_version() );
+        $plugin_public = new ACF_Icomoon_Picker_Public( $this->getPluginName(), $this->getVersion() );
 
-        $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-        $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+        $this->loader->addAction( 'wp_enqueue_scripts', $plugin_public, 'enqueueStyles' );
+        $this->loader->addAction( 'wp_enqueue_scripts', $plugin_public, 'enqueueScripts' );
     }
 
     /**
@@ -192,7 +189,7 @@ class ACF_Icomoon_Picker
      * @since     1.0.0
      * @return    string    The name of the plugin.
      */
-    public function get_plugin_name()
+    public function getPluginName()
     {
         return $this->plugin_name;
     }
@@ -203,7 +200,7 @@ class ACF_Icomoon_Picker
      * @since     1.0.0
      * @return    ACF_Icomoon_Picker_Loader    Orchestrates the hooks of the plugin.
      */
-    public function get_loader()
+    public function getLoader()
     {
         return $this->loader;
     }
@@ -214,7 +211,7 @@ class ACF_Icomoon_Picker
      * @since     1.0.0
      * @return    string    The version number of the plugin.
      */
-    public function get_version()
+    public function getVersion()
     {
         return $this->version;
     }

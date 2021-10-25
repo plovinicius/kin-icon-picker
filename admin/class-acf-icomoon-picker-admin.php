@@ -10,28 +10,30 @@
  * @package    ACF_Icomoon_Picker
  * @subpackage ACF_Icomoon_Picker/admin
  */
-class ACF_Icomoon_Picker_Admin {
-
+class ACF_Icomoon_Picker_Admin
+{
     /**
-     * The ID of this plugin.
-     *
      * @since    1.0.0
-     * @access   private
-     * @var      string    $plugin_name    The ID of this plugin.
+     * @var      string
      */
     private $plugin_name;
 
     /**
-     * The version of this plugin.
-     *
      * @since    1.0.0
-     * @access   private
-     * @var      string    $version    The current version of this plugin.
+     * @var      string
      */
     private $version;
 
+    /**
+     * @since    1.0.0
+     * @var      string
+     */
     private $uploaded_config;
 
+    /**
+     * @since    1.0.0
+     * @var      string
+     */
     private $assetsUrl;
 
     /**
@@ -67,7 +69,7 @@ class ACF_Icomoon_Picker_Admin {
      *
      * @since    1.0.0
      */
-    public function enqueue_styles()
+    public function enqueueStyles()
     {
         /**
          * This function is provided for demonstration purposes only.
@@ -90,7 +92,7 @@ class ACF_Icomoon_Picker_Admin {
      *
      * @since    1.0.0
      */
-    public function enqueue_scripts()
+    public function enqueueScripts()
     {
         /**
          * This function is provided for demonstration purposes only.
@@ -166,15 +168,15 @@ class ACF_Icomoon_Picker_Admin {
 
     public function registerAndBuildFields()
     {
-        register_setting('acf_icomoon_picker_general_settings', 'acf_icomoon_picker_config_file', array($this, 'handle_file_upload'));
+        register_setting('acf_icomoon_picker_general_settings', 'acf_icomoon_picker_config_file', array($this, 'handleFileUpload'));
     }
 
-    public function handle_file_upload($option)
+    public function handleFileUpload($option)
     {
         if (!empty($_FILES["acf_icomoon_picker_config_file"]["tmp_name"]))
         {
             $urls = wp_handle_upload($_FILES["acf_icomoon_picker_config_file"], array('test_form' => FALSE));
-            $this->unzip_icomoon_config($urls);
+            $this->unzipIcomoonConfig($urls);
 
             wp_delete_file($urls['file']);
 
@@ -184,7 +186,7 @@ class ACF_Icomoon_Picker_Admin {
         return $option;
     }
 
-    public function unzip_icomoon_config($uploadedFile)
+    public function unzipIcomoonConfig($uploadedFile)
     {
         WP_Filesystem();
         $isUnziped = unzip_file($uploadedFile['file'], $this->uploaded_config_path);

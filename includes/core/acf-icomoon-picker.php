@@ -13,11 +13,11 @@ class acf_icomoon_picker_plugin
         );
 
         // include field
-        add_action('acf/include_field_types', 	array($this, 'include_field')); // v5
-        add_action('acf/register_fields', 		array($this, 'include_field')); // v4
+        add_action('acf/include_field_types', 	array($this, 'includeField')); // v5
+        add_action('acf/register_fields', 		array($this, 'includeField')); // v4
     }
 
-    function include_field( $version = false )
+    function includeField( $version = false )
     {
         // support empty $version
         if( !$version ) $version = 5;

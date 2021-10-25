@@ -11,7 +11,6 @@
  */
 class ACF_Icomoon_Picker_Deactivator
 {
-
     /**
      * Short Description. (use period)
      *
@@ -19,9 +18,5 @@ class ACF_Icomoon_Picker_Deactivator
      *
      * @since    1.0.0
      */
-    public static function deactivate()
-    {
-
-    }
-
+    public static function deactivate() { }
 }

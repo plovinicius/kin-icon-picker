@@ -47,7 +47,6 @@ class icomoonpicker_acf_field_icomoon_picker extends acf_field
 		
 		// do not delete!
     	parent::__construct();
-    	
 	}
 
 	/*
@@ -63,7 +62,8 @@ class icomoonpicker_acf_field_icomoon_picker extends acf_field
 	*  @return	n/a
 	*/
 
-	function render_field_settings( $field ) {
+	function render_field_settings( $field )
+    {
 		/*
 		*  acf_render_field_setting
 		*
@@ -79,7 +79,6 @@ class icomoonpicker_acf_field_icomoon_picker extends acf_field
 //			'type'			=> 'number',
 //			'name'			=> 'font_size',
 //		));
-
 	}
 
 	/*
@@ -96,9 +95,8 @@ class icomoonpicker_acf_field_icomoon_picker extends acf_field
 	*  @param	$field (array) the $field being edited
 	*  @return	n/a
 	*/
-
-	function render_field( $field ) { ?>
-
+	function render_field( $field )
+    { ?>
         <div class="icomoon-picker__control">
             <label class="icomoon-picker__label">
                 <select class="icomoon-picker-select2" name="<?php echo esc_attr($field['name']); ?>"
@@ -128,11 +126,9 @@ class icomoonpicker_acf_field_icomoon_picker extends acf_field
 	*/
 	
 	/*
-	
-	function load_value( $value, $post_id, $field ) {
-		
+	function load_value( $value, $post_id, $field )
+	{
 		return $value;
-		
 	}
 	
 	*/
@@ -154,15 +150,11 @@ class icomoonpicker_acf_field_icomoon_picker extends acf_field
 	*/
 	
 	/*
-	
-	function update_value( $value, $post_id, $field ) {
-		
+	function update_value( $value, $post_id, $field )
+	{
 		return $value;
-		
 	}
-	
 	*/
-	
 	
 	/*
 	*  format_value()
@@ -181,32 +173,22 @@ class icomoonpicker_acf_field_icomoon_picker extends acf_field
 	*/
 		
 	/*
-	
-	function format_value( $value, $post_id, $field ) {
-		
+	function format_value( $value, $post_id, $field )
+	{
 		// bail early if no value
 		if( empty($value) ) {
-		
 			return $value;
-			
 		}
-		
-		
+
 		// apply setting
-		if( $field['font_size'] > 12 ) { 
-			
+		if( $field['font_size'] > 12 ) {
 			// format the value
 			// $value = 'something';
-		
 		}
-		
-		
-		// return
+
 		return $value;
 	}
-	
 	*/
-	
 	
 	/*
 	*  validate_value()
@@ -227,30 +209,22 @@ class icomoonpicker_acf_field_icomoon_picker extends acf_field
 	*/
 	
 	/*
-	
-	function validate_value( $valid, $value, $field, $input ){
-		
+	function validate_value( $valid, $value, $field, $input )
+	{
 		// Basic usage
-		if( $value < $field['custom_minimum_setting'] )
-		{
+		if( $value < $field['custom_minimum_setting'] ) {
 			$valid = false;
 		}
 		
-		
 		// Advanced usage
-		if( $value < $field['custom_minimum_setting'] )
-		{
+		if( $value < $field['custom_minimum_setting'] ) {
 			$valid = __('The value is too little!','acf-icomoon-picker'),
 		}
-		
-		
-		// return
+
+
 		return $valid;
-		
 	}
-	
 	*/
-	
 	
 	/*
 	*  delete_value()
@@ -268,15 +242,8 @@ class icomoonpicker_acf_field_icomoon_picker extends acf_field
 	*/
 	
 	/*
-	
-	function delete_value( $post_id, $key ) {
-		
-		
-		
-	}
-	
+	function delete_value( $post_id, $key ) { }
 	*/
-	
 	
 	/*
 	*  load_field()
@@ -292,16 +259,12 @@ class icomoonpicker_acf_field_icomoon_picker extends acf_field
 	*/
 	
 	/*
-	
-	function load_field( $field ) {
-		
+	function load_field( $field )
+	{
 		return $field;
-		
-	}	
-	
+	}
 	*/
-	
-	
+
 	/*
 	*  update_field()
 	*
@@ -316,15 +279,11 @@ class icomoonpicker_acf_field_icomoon_picker extends acf_field
 	*/
 	
 	/*
-	
-	function update_field( $field ) {
-		
+	function update_field( $field )
+	{
 		return $field;
-		
-	}	
-	
+	}
 	*/
-	
 	
 	/*
 	*  delete_field()
@@ -340,24 +299,12 @@ class icomoonpicker_acf_field_icomoon_picker extends acf_field
 	*/
 	
 	/*
-	
-	function delete_field( $field ) {
-		
-		
-		
-	}	
-	
+	function delete_field( $field ) { }
 	*/
-	
-	
 }
-
 
 // initialize
 new icomoonpicker_acf_field_icomoon_picker( $this->settings );
 
-
 // class_exists check
 endif;
-
-?>
