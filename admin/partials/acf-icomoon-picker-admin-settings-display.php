@@ -49,7 +49,7 @@
                             </span>
 
                             <span class="acf-icomoon-picker__form__checkbox-label">
-                                <?php _e('Load Icomoon fonts and styles (css) on front-end.', 'acf-icomoon-picker'); ?>
+                                <?php _e('Load Icomoon fonts and styles (css) on the front-end.', 'acf-icomoon-picker'); ?>
                             </span>
                         </label>
                     </div>
