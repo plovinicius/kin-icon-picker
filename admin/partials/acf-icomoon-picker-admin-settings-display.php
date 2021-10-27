@@ -1,6 +1,11 @@
 <?php
-    $uploadedPath = get_option('acf_icomoon_picker_config_file');
+    $uploadedPath = esc_attr(get_option('acf_icomoon_picker_config_file'));
     $files = [];
+    $loadStyle = 0;
+
+    if (esc_attr( get_option('acf_icomoon_picker_load_style') )) {
+        $loadStyle = !!esc_attr( get_option('acf_icomoon_picker_load_style') );
+    }
 
     if (is_dir($uploadedPath)) {
         $files = list_files($uploadedPath);
@@ -35,11 +40,29 @@
 
                 <div class="acf-icomoon-picker__form-control">
                     <div class="acf-icomoon-picker__form-col">
+                        <label for="acf_icomoon_picker_load_style" class="acf-icomoon-picker__form__checkbox">
+                            <span class="acf-icomoon-picker__form__checkbox-switch">
+                                <input id="acf_icomoon_picker_load_style" type="checkbox" name="acf_icomoon_picker_load_style"
+                                   value="1" <?php if ($loadStyle) echo 'checked'; ?> />
+
+                                <span class="slider"></span>
+                            </span>
+
+                            <span class="acf-icomoon-picker__form__checkbox-label">
+                                <?php _e('Load Icomoon fonts and styles (css) on front-end.', 'acf-icomoon-picker'); ?>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="acf-icomoon-picker__form-control">
+                    <div class="acf-icomoon-picker__form-col">
                         <div class="acf-icomoon-picker__form__upload">
                             <label for="acf_icomoon_picker_config_file">
                                 <input id="acf_icomoon_picker_config_file" type="file" accept=".zip"
-                                   name="acf_icomoon_picker_config_file"
-                                   value="<?php echo esc_attr( get_option('new_option_name') ); ?>" />
+                                   name="acf_icomoon_picker_config_file" value="<?php echo $uploadedPath; ?>" />
+
+                                <input type="hidden" name="acf_icomoon_picker_old_config_file" value="<?php echo $uploadedPath; ?>" />
 
                                 <span class="acf-icomoon-picker__form__upload-text text">
                                     <?php _e('Update Icomoon files (.zip)', 'acf-icomoon-picker'); ?>

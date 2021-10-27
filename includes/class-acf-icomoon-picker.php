@@ -77,7 +77,10 @@ class ACF_Icomoon_Picker
         $this->loadDependencies();
         $this->setLocale();
         $this->defineAdminHooks();
-        $this->definePublicHooks();
+
+        if (esc_attr( get_option('acf_icomoon_picker_load_style') )) {
+            $this->definePublicHooks();
+        }
     }
 
     /**

@@ -169,6 +169,7 @@ class ACF_Icomoon_Picker_Admin
     public function registerAndBuildFields()
     {
         register_setting('acf_icomoon_picker_general_settings', 'acf_icomoon_picker_config_file', array($this, 'handleFileUpload'));
+        register_setting('acf_icomoon_picker_general_settings', 'acf_icomoon_picker_load_style');
     }
 
     public function handleFileUpload($option)
@@ -180,7 +181,13 @@ class ACF_Icomoon_Picker_Admin
 
             wp_delete_file($urls['file']);
 
-            return $this->uploaded_config_path;
+            return $this->uploaded_config['path'];
+        }
+
+        $oldConfigFile = isset($_POST['acf_icomoon_picker_old_config_file']) ? $_POST['acf_icomoon_picker_old_config_file'] : null;
+
+        if (!empty($oldConfigFile)) {
+            return $oldConfigFile;
         }
 
         return $option;
@@ -189,7 +196,7 @@ class ACF_Icomoon_Picker_Admin
     public function unzipIcomoonConfig($uploadedFile)
     {
         WP_Filesystem();
-        $isUnziped = unzip_file($uploadedFile['file'], $this->uploaded_config_path);
+        $isUnziped = unzip_file($uploadedFile['file'], $this->uploaded_config['path']);
 
         if ($isUnziped) {
             $this->doDeleteIcomoonUnusedFiles();
@@ -203,8 +210,8 @@ class ACF_Icomoon_Picker_Admin
         WP_Filesystem();
         global $wp_filesystem;
 
-        wp_delete_file($this->uploaded_config_path .'/demo.html');
-        wp_delete_file($this->uploaded_config_path .'/Read Me.txt');
-        $wp_filesystem->rmdir($this->uploaded_config_path .'/demo-files', true);
+        wp_delete_file($this->uploaded_config['path'] .'/demo.html');
+        wp_delete_file($this->uploaded_config['path'] .'/Read Me.txt');
+        $wp_filesystem->rmdir($this->uploaded_config['path'] .'/demo-files', true);
     }
 }
