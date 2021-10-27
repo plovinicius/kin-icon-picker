@@ -176,8 +176,24 @@ class ACF_Icomoon_Picker_Admin
     {
         if (!empty($_FILES["acf_icomoon_picker_config_file"]["tmp_name"]))
         {
+            if (!$this->validateUploadedFileFormat($_FILES["acf_icomoon_picker_config_file"])) {
+                add_settings_error(
+                    'acf_icomoon_picker_general_settings',
+                    'acf_icomoon_picker_config_file',
+                    __('Uploaded file is invalid, please, provide a .zip file.', 'acf-icomoon-picker')
+                );
+            }
+
             $urls = wp_handle_upload($_FILES["acf_icomoon_picker_config_file"], array('test_form' => FALSE));
-            $this->unzipIcomoonConfig($urls);
+            $response = $this->unzipIcomoonConfig($urls);
+
+            if (!$response) {
+                add_settings_error(
+                    'acf_icomoon_picker_general_settings',
+                    'acf_icomoon_picker_config_file',
+                    __('An unexpected error occurred, please, verify the directory permissions.', 'acf-icomoon-picker')
+                );
+            }
 
             wp_delete_file($urls['file']);
 
@@ -213,5 +229,14 @@ class ACF_Icomoon_Picker_Admin
         wp_delete_file($this->uploaded_config['path'] .'/demo.html');
         wp_delete_file($this->uploaded_config['path'] .'/Read Me.txt');
         $wp_filesystem->rmdir($this->uploaded_config['path'] .'/demo-files', true);
+    }
+
+    private function validateUploadedFileFormat($file)
+    {
+        if (!isset($file['type']) || $file['type'] !== 'application/zip') {
+            return false;
+        }
+
+        return true;
     }
 }
