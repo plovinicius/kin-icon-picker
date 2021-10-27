@@ -10,7 +10,8 @@
  * @package    ACF_Icomoon_Picker
  * @subpackage ACF_Icomoon_Picker/public
  */
-class ACF_Icomoon_Picker_Public {
+class ACF_Icomoon_Picker_Public
+{
 
     /**
      * The ID of this plugin.
@@ -31,17 +32,30 @@ class ACF_Icomoon_Picker_Public {
     private $version;
 
     /**
+     * @since    1.0.0
+     * @var      string
+     */
+    private $uploaded_config;
+
+    /**
      * Initialize the class and set its properties.
      *
      * @since    1.0.0
      * @param      string    $plugin_name       The name of the plugin.
      * @param      string    $version    The version of this plugin.
      */
-    public function __construct( $plugin_name, $version ) {
+    public function __construct( $plugin_name, $version )
+    {
+        // FIXME: refactor this path, remove duplicated code
+        $destination = wp_upload_dir();
+        $this->uploaded_config = [
+            'path' => $destination['basedir'] .'/acf-icomoon-picker/settings',
+            'url' => $destination['baseurl'] .'/acf-icomoon-picker/settings'
+        ];
+        // ----------------------------------------------------------------------
 
         $this->plugin_name = $plugin_name;
         $this->version = $version;
-
     }
 
     /**
@@ -49,8 +63,8 @@ class ACF_Icomoon_Picker_Public {
      *
      * @since    1.0.0
      */
-    public function enqueue_styles() {
-
+    public function enqueueStyles()
+    {
         /**
          * This function is provided for demonstration purposes only.
          *
@@ -63,8 +77,7 @@ class ACF_Icomoon_Picker_Public {
          * class.
          */
 
-//        wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/file.css', array(), $this->version, 'all' );
-
+        wp_enqueue_style( 'acf-icomoon-picker-style', "{$this->uploaded_config['url']}/style.css", array(), $this->version, 'all' );
     }
 
     /**
@@ -72,8 +85,8 @@ class ACF_Icomoon_Picker_Public {
      *
      * @since    1.0.0
      */
-    public function enqueue_scripts() {
-
+    public function enqueueScripts()
+    {
         /**
          * This function is provided for demonstration purposes only.
          *
@@ -87,7 +100,5 @@ class ACF_Icomoon_Picker_Public {
          */
 
 //        wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/file.js', array( 'jquery' ), $this->version, false );
-
     }
-
 }
