@@ -3,10 +3,11 @@
 	const $select = $('.icomoon-picker-select2');
 	const data = icomoonJSON.full_data;
 	const selectedValue = $select.attr('data-selected');
+	const iconPrefix = data.preferences.fontPref.prefix;
 
 	const options = data?.icons.map((icon) => {
 		return {
-			id: icon?.properties?.name,
+			id: `${iconPrefix}${icon?.properties?.name}`,
 			text: icon?.properties?.name
 		};
 	});
@@ -28,6 +29,6 @@
 	}, 200);
 
 	function formatOption(icon) {
-		return $('<span><i class="icon-' + icon.id + '"></i> ' + icon.text + '</span>');
+		return $('<span><i class="'+ icon.id +'"></i> ' + icon.text + '</span>');
 	}
 })(jQuery);
