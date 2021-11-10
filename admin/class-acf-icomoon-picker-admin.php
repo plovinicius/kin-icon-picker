@@ -185,6 +185,15 @@ class ACF_Icomoon_Picker_Admin
             }
 
             $urls = wp_handle_upload($_FILES["acf_icomoon_picker_config_file"], array('test_form' => FALSE));
+
+            if (empty($urls) || !isset($urls['file'])) {
+                add_settings_error(
+                    'acf_icomoon_picker_general_settings',
+                    'acf_icomoon_picker_config_file',
+                    __('File is invalid, please, try to upload a .zip file again.', 'acf-icomoon-picker')
+                );
+            }
+
             $response = $this->unzipIcomoonConfig($urls);
 
             if (!$response) {
