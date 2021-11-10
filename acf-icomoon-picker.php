@@ -1,7 +1,7 @@
 <?php
 
 /*
-Plugin Name: Advanced Custom Fields: Icomoon Picker
+Plugin Name: ACF Icomoon Picker
 Plugin URI: https://github.com/plovinicius/acf-icomoon-picker
 Description: Powerful plugin to add Icomoon support to plugin Advanced Custom Fields (ACF)
 Version: 1.0.0
@@ -14,38 +14,55 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 // exit if accessed directly
 if( ! defined( 'ABSPATH' ) ) exit;
 
+define( 'ACF_ICOMOON_PICKER', '1.0.0' );
 
-// check if class already exists
-if( !class_exists('icomoonpicker_acf_plugin_icomoon_picker') ) :
-    class icomoonpicker_acf_plugin_icomoon_picker {
+/**
+ * The code that runs during plugin activation.
+ * This action is documented in includes/class-acf-icomoon-picker-activator.php
+ */
+function activateAcfIcomoonPicker()
+{
+    require_once plugin_dir_path( __FILE__ ) . 'includes/class-acf-icomoon-picker-activator.php';
+    ACF_Icomoon_Picker_Activator::activate();
+}
 
-        var $settings;
+/**
+ * The code that runs during plugin deactivation.
+ * This action is documented in includes/class-acf-icomoon-picker-deactivator.php
+ */
+function deactivateAcfIcomoonPicker()
+{
+    require_once plugin_dir_path( __FILE__ ) . 'includes/class-acf-icomoon-picker-deactivator.php';
+    ACF_Icomoon_Picker_Deactivator::deactivate();
+}
 
-        function __construct() {
-            $this->settings = array(
-                'version'	=> '1.0.0',
-                'url'		=> plugin_dir_url( __FILE__ ),
-                'path'		=> plugin_dir_path( __FILE__ ),
-            );
+register_activation_hook( __FILE__, 'activateAcfIcomoonPicker' );
+register_deactivation_hook( __FILE__, 'deactivateAcfIcomoonPicker' );
 
+/**
+ * The core plugin class that is used to define internationalization,
+ * admin-specific hooks, and public-facing site hooks.
+ */
+require plugin_dir_path( __FILE__ ) . 'includes/class-acf-icomoon-picker.php';
 
-            // include field
-            add_action('acf/include_field_types', 	array($this, 'include_field')); // v5
-            add_action('acf/register_fields', 		array($this, 'include_field')); // v4
-        }
+if (! class_exists('acf_icomoon_picker_plugin')) {
+    require_once plugin_dir_path(__FILE__) . 'includes/core/acf-icomoon-picker.php';
+    new acf_icomoon_picker_plugin();
+}
 
-        function include_field( $version = false ) {
+/**
+ * Begins execution of the plugin.
+ *
+ * Since everything within the plugin is registered via hooks,
+ * then kicking off the plugin from this point in the file does
+ * not affect the page life cycle.
+ *
+ * @since    1.0.0
+ */
+function runAcfIcomoonPicker()
+{
+    $plugin = new ACF_Icomoon_Picker();
+    $plugin->run();
+}
 
-            // support empty $version
-            if( !$version ) $version = 4;
-
-            // load textdomain
-            load_plugin_textdomain( 'acf-icomoon-picker', false, plugin_basename( dirname( __FILE__ ) ) . '/lang' );
-
-            // include
-            include_once('fields/class-icomoonpicker-acf-field-icomoon-field-v' . $version . '.php');
-        }
-    }
-
-    new icomoonpicker_acf_plugin_icomoon_picker();
-endif;
+runAcfIcomoonPicker();

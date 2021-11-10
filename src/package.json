@@ -38,15 +38,15 @@
 		"gulp-zip": "^5.0.2"
 	},
 	"scripts": {
-		"start": "../node_modules/.bin/gulp",
-		"zip": "../node_modules/.bin/gulp zip",
-		"styles": "../node_modules/.bin/gulp styles",
-		"images": "../node_modules/.bin/gulp images",
-		"js-custom": "../node_modules/.bin/gulp customJS",
-		"js-vendors": "../node_modules/.bin/gulp vendorsJS",
-		"translate": "../node_modules/.bin/gulp translate",
-		"styles-rtl": "../node_modules/.bin/gulp stylesRTL",
-		"cache-clear": "../node_modules/.bin/gulp clearCache"
+		"start": "./node_modules/.bin/gulp",
+		"zip": "./node_modules/.bin/gulp zip",
+		"styles": "./node_modules/.bin/gulp styles",
+		"images": "./node_modules/.bin/gulp images",
+		"js-custom": "./node_modules/.bin/gulp customJS",
+		"js-vendors": "./node_modules/.bin/gulp vendorsJS",
+		"translate": "./node_modules/.bin/gulp translate",
+		"styles-rtl": "./node_modules/.bin/gulp stylesRTL",
+		"cache-clear": "./node_modules/.bin/gulp clearCache"
 	},
 	"dependencies": {
 		"select2": "^4.1.0-rc.0"

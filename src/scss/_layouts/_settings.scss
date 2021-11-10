@@ -1,0 +1,49 @@
+.acf-icomoon-picker {
+  margin-left: -20px;
+
+  &__header {
+	background: #fff;
+	margin-left: -20px;
+	display: flex;
+	padding: 10px 0 10px 20px;
+	margin-bottom: 20px;
+
+
+	h2 {
+	  font-size: 14px;
+	  line-height: 20px;
+	  display: inline-block;
+	  padding: 5px 20px;
+	  margin: 0 10px 0 0;
+	}
+  }
+
+  &__container {
+	width: 100%;
+	padding: 0 20px;
+  }
+
+  &__files {
+	display: inline-block;
+	max-width: 100%;
+	width: 400px;
+
+	ul {
+	  display: flex;
+	  list-style: none;
+	  margin: 0;
+	  flex-direction: column;
+	  background: #ccc;
+	  padding: 10px 20px 5px;
+
+	  li {
+		font-weight: 500;
+		margin: 5px 0;
+	  }
+	}
+  }
+
+  .notice {
+	margin: 0 0 20px !important;
+  }
+}
