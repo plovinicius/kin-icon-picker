@@ -43,7 +43,7 @@
                         <label for="acf_icomoon_picker_load_style" class="acf-icomoon-picker__form__checkbox">
                             <span class="acf-icomoon-picker__form__checkbox-switch">
                                 <input id="acf_icomoon_picker_load_style" type="checkbox" name="acf_icomoon_picker_load_style"
-                                   value="1" <?php if ($loadStyle) echo 'checked'; ?> />
+                                   value="1" <?php if ($loadStyle) echo esc_attr('checked'); ?> />
 
                                 <span class="slider"></span>
                             </span>
@@ -60,9 +60,10 @@
                         <div class="acf-icomoon-picker__form__upload">
                             <label for="acf_icomoon_picker_config_file">
                                 <input id="acf_icomoon_picker_config_file" type="file" accept=".zip"
-                                   name="acf_icomoon_picker_config_file" value="<?php echo $uploadedPath; ?>" />
+                                   name="acf_icomoon_picker_config_file" value="<?php echo esc_attr($uploadedPath); ?>" />
 
-                                <input type="hidden" name="acf_icomoon_picker_old_config_file" value="<?php echo $uploadedPath; ?>" />
+                                <input type="hidden" name="acf_icomoon_picker_old_config_file"
+                                       value="<?php echo esc_attr($uploadedPath); ?>" />
 
                                 <span class="acf-icomoon-picker__form__upload-text text">
                                     <?php _e('Update Icomoon files (.zip)', 'acf-icomoon-picker'); ?>
@@ -83,7 +84,7 @@
                         <ul>
                             <?php foreach($files as $file): ?>
                                 <li>
-                                    <?php echo str_replace($uploadedPath, "", $file); ?>
+                                    <?php echo esc_attr(str_replace($uploadedPath, "", $file)); ?>
                                 </li>
                             <?php endforeach; ?>
                         </ul>

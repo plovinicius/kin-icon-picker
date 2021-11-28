@@ -128,8 +128,10 @@ class ACF_Icomoon_Picker_Admin
 
     public function checkIfAcfIsActivated()
     {
-        if (!is_dir($this->uploaded_config['path'])) {
-            mkdir($this->uploaded_config['path'], 0775, true);
+        $file_path = esc_attr($this->uploaded_config['path']);
+
+        if (!is_dir($file_path) {
+            mkdir($file_path, 0775, true);
         }
 
         if (!class_exists('acf')) {
@@ -160,7 +162,7 @@ class ACF_Icomoon_Picker_Admin
     {
         if (isset($_GET['error_message'])) {
 //            add_action('admin_notices', array($this,'settingsPageSettingsMessages'));
-            do_action( 'admin_notices', $_GET['error_message'] );
+            do_action( 'admin_notices', esc_attr($_GET['error_message']) );
         }
 
         require_once 'partials/'.$this->plugin_name.'-admin-settings-display.php';
@@ -174,9 +176,12 @@ class ACF_Icomoon_Picker_Admin
 
     public function handleFileUpload($option)
     {
-        if (!empty($_FILES["acf_icomoon_picker_config_file"]["tmp_name"]))
+        $file = esc_attr($_FILES["acf_icomoon_picker_config_file"]);
+        $temp_filename = esc_attr($file["tmp_name"]);
+
+        if (!empty($temp_filename))
         {
-            if (!$this->validateUploadedFileFormat($_FILES["acf_icomoon_picker_config_file"])) {
+            if (!$this->validateUploadedFileFormat($file) {
                 add_settings_error(
                     'acf_icomoon_picker_general_settings',
                     'acf_icomoon_picker_config_file',
@@ -184,7 +189,7 @@ class ACF_Icomoon_Picker_Admin
                 );
             }
 
-            $urls = wp_handle_upload($_FILES["acf_icomoon_picker_config_file"], array('test_form' => FALSE));
+            $urls = wp_handle_upload($file, array('test_form' => FALSE));
 
             if (empty($urls) || !isset($urls['file'])) {
                 add_settings_error(
@@ -209,7 +214,8 @@ class ACF_Icomoon_Picker_Admin
             return $this->uploaded_config['path'];
         }
 
-        $oldConfigFile = isset($_POST['acf_icomoon_picker_old_config_file']) ? $_POST['acf_icomoon_picker_old_config_file'] : null;
+        $old_file_name = esc_attr($_POST['acf_icomoon_picker_old_config_file']);
+        $oldConfigFile = isset($old_file_name) ? $old_file_name : null;
 
         if (!empty($oldConfigFile)) {
             return $oldConfigFile;
