@@ -1,32 +1,41 @@
 "use strict";
 
 (function ($) {
-  var control = $('.icomoon-picker__control');
-  var $select = $('.icomoon-picker-select2');
-  var data = icomoonJSON.full_data;
-  var selectedValue = $select.attr('data-selected');
-  var iconPrefix = data.preferences.fontPref.prefix;
-  var options = data === null || data === void 0 ? void 0 : data.icons.map(function (icon) {
-    var _icon$properties, _icon$properties2;
+  acf.add_action('load, append', function ($el) {
+    initSelect2();
+  });
 
-    return {
-      id: "".concat(iconPrefix).concat(icon === null || icon === void 0 ? void 0 : (_icon$properties = icon.properties) === null || _icon$properties === void 0 ? void 0 : _icon$properties.name),
-      text: icon === null || icon === void 0 ? void 0 : (_icon$properties2 = icon.properties) === null || _icon$properties2 === void 0 ? void 0 : _icon$properties2.name
-    };
-  });
-  $select.select2({
-    data: options,
-    width: "100%",
-    templateSelection: formatOption,
-    templateResult: formatOption,
-    containerCssClass: 'icomoon-picker-dropdown__container',
-    dropdownCssClass: 'icomoon-picker-dropdown__results',
-    allowHtml: true
-  });
-  $select.val(selectedValue).trigger('change');
-  setTimeout(function () {
-    control.fadeIn('fast');
-  }, 200);
+  function initSelect2() {
+    var control = $('.icomoon-picker__control');
+    var $allSelects = $('.icomoon-picker-select2');
+    var data = icomoonJSON.full_data;
+    $allSelects.each(function (index, item) {
+      var $select = $allSelects.eq(index);
+      var selectedValue = $select.attr('data-selected');
+      var iconPrefix = data.preferences.fontPref.prefix;
+      var options = data === null || data === void 0 ? void 0 : data.icons.map(function (icon) {
+        var _icon$properties, _icon$properties2;
+
+        return {
+          id: "".concat(iconPrefix).concat(icon === null || icon === void 0 ? void 0 : (_icon$properties = icon.properties) === null || _icon$properties === void 0 ? void 0 : _icon$properties.name),
+          text: icon === null || icon === void 0 ? void 0 : (_icon$properties2 = icon.properties) === null || _icon$properties2 === void 0 ? void 0 : _icon$properties2.name
+        };
+      });
+      var $currentSelect2 = $select.select2({
+        data: options,
+        width: "100%",
+        templateSelection: formatOption,
+        templateResult: formatOption,
+        containerCssClass: 'icomoon-picker-dropdown__container',
+        dropdownCssClass: 'icomoon-picker-dropdown__results',
+        allowHtml: true
+      });
+      $currentSelect2.val(selectedValue).trigger('change');
+    });
+    setTimeout(function () {
+      control.fadeIn('fast');
+    }, 200);
+  }
 
   function formatOption(icon) {
     return $('<span><i class="' + icon.id + '"></i> ' + icon.text + '</span>');
