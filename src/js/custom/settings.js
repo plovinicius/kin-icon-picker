@@ -12,7 +12,7 @@
 		}
 
 		const filenameSplit = $input.val().split("\\");
-		$filename.html(filenameSplit[filenameSplit.length - 1]);
+		$filename.text(filenameSplit[filenameSplit.length - 1]);
 
 		$parent.addClass('uploaded');
 	});

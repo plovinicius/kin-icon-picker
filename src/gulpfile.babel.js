@@ -69,7 +69,7 @@ const zip = require('gulp-zip'); // Zip plugin or theme file.
  * @param Mixed err
  */
 const errorHandler = r => {
-	notify.onError('\n\n❌  ===> ERROR: <%= error.message %>\n')(r);
+	notify.onError('\n\n❌  ===> ERROR: <%- error.message %>\n')(r);
 	beep();
 
 	// this.emit('end');

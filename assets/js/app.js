@@ -38,7 +38,7 @@
   }
 
   function formatOption(icon) {
-    return $('<span><i class="' + icon.id + '"></i> ' + icon.text + '</span>');
+    return $(`<span><i class="${icon.id}"></i>${icon.text}</span>`);
   }
 })(jQuery);
 "use strict";
@@ -56,7 +56,7 @@
     }
 
     var filenameSplit = $input.val().split("\\");
-    $filename.html(filenameSplit[filenameSplit.length - 1]);
+    $filename.text(filenameSplit[filenameSplit.length - 1]);
     $parent.addClass('uploaded');
   });
 })(jQuery);

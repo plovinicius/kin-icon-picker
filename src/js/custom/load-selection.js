@@ -39,6 +39,6 @@
 	}
 
 	function formatOption(icon) {
-		return $('<span><i class="' + icon.id + '"></i> ' + icon.text + '</span>');
+		return $(`<span><i class="${icon.id}"></i> ${icon.text}</span>`);
 	}
 })(jQuery);
