@@ -19,7 +19,6 @@ class acf_icomoon_picker_plugin
 
     function includeField( $version = false )
     {
-        // support empty $version
         if( !$version ) $version = 5;
 
         // include

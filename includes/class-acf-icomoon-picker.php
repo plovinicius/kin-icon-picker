@@ -152,11 +152,9 @@ class ACF_Icomoon_Picker
      */
     private function defineAdminHooks()
     {
-
         $plugin_admin = new ACF_Icomoon_Picker_Admin( $this->getPluginName(), $this->getVersion() );
 
         $this->loader->addAction( 'admin_enqueue_scripts', $plugin_admin, 'enqueueStyles' );
-//        $this->loader->addAction( 'admin_enqueue_scripts', $plugin_admin, 'enqueueScripts' );
         $this->loader->addAction( 'acf/input/admin_enqueue_scripts', $plugin_admin, 'enqueueScripts' );
     }
 
