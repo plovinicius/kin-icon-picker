@@ -131,7 +131,7 @@ class ACF_Icomoon_Picker_Admin
 
     public function checkIfAcfIsActivated()
     {
-        $file_path = esc_attr($this->uploaded_config['path']);
+        $file_path = $this->uploaded_config['path'];
 
         if (!is_dir($file_path)) {
             mkdir($file_path, 0775, true);
@@ -165,7 +165,7 @@ class ACF_Icomoon_Picker_Admin
     {
         if (isset($_GET['error_message'])) {
 //            add_action('admin_notices', array($this,'settingsPageSettingsMessages'));
-            do_action( 'admin_notices', esc_attr($_GET['error_message']) );
+            do_action( 'admin_notices', esc_html($_GET['error_message']) );
         }
 
         require_once 'partials/'.$this->plugin_name.'-admin-settings-display.php';
@@ -174,13 +174,17 @@ class ACF_Icomoon_Picker_Admin
     public function registerAndBuildFields()
     {
         register_setting('acf_icomoon_picker_general_settings', 'acf_icomoon_picker_config_file', array($this, 'handleFileUpload'));
-        register_setting('acf_icomoon_picker_general_settings', 'acf_icomoon_picker_load_style');
+        register_setting('acf_icomoon_picker_general_settings', 'acf_icomoon_picker_load_style', array($this, 'handleLoadStyle'));
+    }
+
+    public function handleLoadStyle($data) {
+        return sanitize_text_field($data);
     }
 
     public function handleFileUpload($option)
     {
         $file = $_FILES["acf_icomoon_picker_config_file"];
-        $temp_filename = $file["tmp_name"];
+        $temp_filename = sanitize_file_name($file["tmp_name"]);
 
         if (!empty($temp_filename))
         {
@@ -214,17 +218,17 @@ class ACF_Icomoon_Picker_Admin
 
             wp_delete_file($urls['file']);
 
-            return $this->uploaded_config['path'];
+            return sanitize_text_field($this->uploaded_config['path']);
         }
 
-        $old_file_name = esc_attr($_POST['acf_icomoon_picker_old_config_file']);
-        $oldConfigFile = isset($old_file_name) ? $old_file_name : null;
+        $old_file_name = $_POST['acf_icomoon_picker_old_config_file'];
+        $oldConfigFile = isset($old_file_name) ? sanitize_text_field($old_file_name) : null;
 
         if (!empty($oldConfigFile)) {
             return $oldConfigFile;
         }
 
-        return $option;
+        return sanitize_text_field($option);
     }
 
     public function unzipIcomoonConfig($uploadedFile)

@@ -1,10 +1,10 @@
 <?php
-    $uploadedPath = esc_attr(get_option('acf_icomoon_picker_config_file'));
+    $uploadedPath = get_option('acf_icomoon_picker_config_file');
     $files = [];
     $loadStyle = 0;
 
-    if (esc_attr( get_option('acf_icomoon_picker_load_style') )) {
-        $loadStyle = !!esc_attr( get_option('acf_icomoon_picker_load_style') );
+    if (get_option('acf_icomoon_picker_load_style') ) {
+        $loadStyle = !!get_option('acf_icomoon_picker_load_style');
     }
 
     if (is_dir($uploadedPath)) {
@@ -84,7 +84,7 @@
                         <ul>
                             <?php foreach($files as $file): ?>
                                 <li>
-                                    <?php echo esc_attr(str_replace($uploadedPath, "", $file)); ?>
+                                    <?php echo esc_html(str_replace($uploadedPath, "", $file)); ?>
                                 </li>
                             <?php endforeach; ?>
                         </ul>

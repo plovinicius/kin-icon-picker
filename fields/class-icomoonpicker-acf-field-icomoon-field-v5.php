@@ -131,6 +131,8 @@ class icomoonpicker_acf_field_icomoon_picker extends acf_field
 			return null;
 		}
 
+		$value = esc_attr($value);
+
 		return "<i class='{$value}'></i>";
 	}
 }
