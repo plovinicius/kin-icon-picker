@@ -48,39 +48,7 @@ class icomoonpicker_acf_field_icomoon_picker extends acf_field
 		// do not delete!
     	parent::__construct();
 	}
-
-	/*
-	*  render_field_settings()
-	*
-	*  Create extra settings for your field. These are visible when editing a field
-	*
-	*  @type	action
-	*  @since	3.6
-	*  @date	23/01/13
-	*
-	*  @param	$field (array) the $field being edited
-	*  @return	n/a
-	*/
-
-	function render_field_settings( $field )
-    {
-		/*
-		*  acf_render_field_setting
-		*
-		*  This function will create a setting for your field. Simply pass the $field parameter and an array of field settings.
-		*  The array of settings does not require a `value` or `prefix`; These settings are found from the $field array.
-		*
-		*  More than one setting can be added by copy/paste the above code.
-		*  Please note that you must also have a matching $defaults value for the field name (font_size)
-		*/
-//		acf_render_field_setting( $field, array(
-//			'label'			=> __('Font Size','acf-icomoon-picker'),
-//			'instructions'	=> __('Customise the input font size','acf-icomoon-picker'),
-//			'type'			=> 'number',
-//			'name'			=> 'font_size',
-//		));
-	}
-
+	
 	/*
 	*  render_field()
 	*
