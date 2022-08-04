@@ -9,6 +9,6 @@
         }
     },
     "scripts": {
-        "phpcs": "./vendor/bin/phpcs --standard=WordPress-VIP-Go -sp --basepath=. --ignore=vendor,*.min.js,*.min.css ./"
+        "phpcs": "./vendor/bin/phpcs --standard=WordPress-VIP-Go -sp --basepath=. --ignore=node_modules,vendor,*.min.js,*.min.css ./"
     }
 }

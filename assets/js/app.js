@@ -1,7 +1,7 @@
 "use strict";
 
 (function ($) {
-  acf.add_action('load, append', function ($el) {
+  acf.addAction('load', function ($el) {
     initSelect2();
   });
 
@@ -38,7 +38,7 @@
   }
 
   function formatOption(icon) {
-    return $(`<span><i class="${icon.id}"></i>${icon.text}</span>`);
+    return $("<span><i class=\"".concat(icon.id, "\"></i> ").concat(icon.text, "</span>"));
   }
 })(jQuery);
 "use strict";
