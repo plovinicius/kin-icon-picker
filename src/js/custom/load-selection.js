@@ -1,5 +1,5 @@
 (function($) {
-	acf.add_action('load, append', function( $el ) {
+	acf.addAction('load', function( $el ) {
 		initSelect2();
 	});
 

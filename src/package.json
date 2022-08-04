@@ -1,11 +1,11 @@
 {
-	"name": "your-project",
+	"name": "IcomoonPicker",
 	"description": "A WPGulp based project.",
 	"version": "0.0.1",
 	"repository": "ahmadawais/WPGulp",
 	"license": "MIT",
 	"engines": {
-		"node": "15.6.0"
+		"node": "^14.18.1"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.0.0",
