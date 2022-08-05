@@ -36,6 +36,7 @@
                 <?php
                     settings_fields( 'acf_icomoon_picker_general_settings' );
                     do_settings_sections( 'acf_icomoon_picker_general_settings' );
+                    wp_nonce_field('acf_icomoon_picker_settings_nonce', 'settings_nonce');
                 ?>
 
                 <div class="acf-icomoon-picker__form-control">

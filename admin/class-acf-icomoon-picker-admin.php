@@ -111,13 +111,9 @@ class ACF_Icomoon_Picker_Admin
 
         // Register main js file to be enqueued
         wp_register_script('app-js', "{$this->assetsUrl}js/app.min.js", array('jquery'), $this->version, true);
-
-        ob_start();
-        include "{$this->uploaded_config['path']}/selection.json";
-        $contents = ob_get_clean();
+        
+        $contents = file_get_contents($this->uploaded_config['path'] .'/selection.json');
         $data = json_decode( $contents );
-
-//        $data = "{$this->uploaded_config['path']}/selection.json";
 
         // Localize script exposing $data contents
         wp_localize_script( 'app-js', 'icomoonJSON', [
@@ -134,7 +130,7 @@ class ACF_Icomoon_Picker_Admin
         $file_path = $this->uploaded_config['path'];
 
         if (!is_dir($file_path)) {
-            mkdir($file_path, 0775, true);
+            wp_mkdir_p($file_path);
         }
 
         if (!class_exists('acf')) {
@@ -163,9 +159,10 @@ class ACF_Icomoon_Picker_Admin
 
     public function displayPluginAdminSettings()
     {
-        if (isset($_GET['error_message'])) {
-//            add_action('admin_notices', array($this,'settingsPageSettingsMessages'));
-            do_action( 'admin_notices', esc_html($_GET['error_message']) );
+        $error_message = isset($_GET['error_message']) ? sanitize_key($_GET['error_message']) : null;
+
+        if ($error_message) {
+            do_action( 'admin_notices', esc_html($error_message) );
         }
 
         require_once 'partials/'.$this->plugin_name.'-admin-settings-display.php';
@@ -183,11 +180,37 @@ class ACF_Icomoon_Picker_Admin
 
     public function handleFileUpload($option)
     {
-        $file = $_FILES["acf_icomoon_picker_config_file"];
+        $nonce = isset($_POST['settings_nonce']) ? sanitize_text_field($_POST['settings_nonce']) : null;
+
+        if (!$nonce || !wp_verify_nonce($nonce, 'acf_icomoon_picker_settings_nonce')) {
+            add_settings_error(
+                'acf_icomoon_picker_general_settings',
+                'acf_icomoon_picker_config_file',
+                __('Nonce is invalid, please, try to reload the page and upload again.', 'acf-icomoon-picker')
+            );
+        };
+
+        if (!current_user_can('upload_files')) {
+            add_settings_error(
+                'acf_icomoon_picker_general_settings',
+                'acf_icomoon_picker_config_file',
+                __('Sorry, you don\'t have permission.', 'acf-icomoon-picker')
+            );
+        }
+
+        $file = isset($_FILES["acf_icomoon_picker_config_file"]) ? $_FILES["acf_icomoon_picker_config_file"] : null;
+
+        if (!$file) {
+            add_settings_error(
+                'acf_icomoon_picker_general_settings',
+                'acf_icomoon_picker_config_file',
+                __('File is invalid, please, try to upload a .zip file again.', 'acf-icomoon-picker')
+            );
+        }
+
         $temp_filename = sanitize_file_name($file["tmp_name"]);
 
-        if (!empty($temp_filename))
-        {
+        if (!empty($temp_filename)) {
             if (!$this->validateUploadedFileFormat($file)) {
                 add_settings_error(
                     'acf_icomoon_picker_general_settings',
@@ -221,8 +244,9 @@ class ACF_Icomoon_Picker_Admin
             return sanitize_text_field($this->uploaded_config['path']);
         }
 
-        $old_file_name = $_POST['acf_icomoon_picker_old_config_file'];
-        $oldConfigFile = isset($old_file_name) ? sanitize_text_field($old_file_name) : null;
+        $oldConfigFile = isset($_POST['acf_icomoon_picker_old_config_file']) 
+            ? sanitize_key($_POST['acf_icomoon_picker_old_config_file']) 
+            : null;
 
         if (!empty($oldConfigFile)) {
             return $oldConfigFile;
