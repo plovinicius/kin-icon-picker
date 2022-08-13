@@ -198,20 +198,18 @@ class ACF_Icomoon_Picker_Admin
             );
         }
 
-        $file = isset($_FILES["acf_icomoon_picker_config_file"]) ? $_FILES["acf_icomoon_picker_config_file"] : null;
-
-        if (!$file) {
+        if (!isset($_FILES["acf_icomoon_picker_config_file"]) || empty($_FILES["acf_icomoon_picker_config_file"]["name"])) {
             add_settings_error(
                 'acf_icomoon_picker_general_settings',
                 'acf_icomoon_picker_config_file',
-                __('File is invalid, please, try to upload a .zip file again.', 'acf-icomoon-picker')
+                __('File not found, please, try to upload a .zip file again.', 'acf-icomoon-picker')
             );
         }
 
-        $temp_filename = sanitize_file_name($file["tmp_name"]);
+        $temp_filename = sanitize_file_name($_FILES["acf_icomoon_picker_config_file"]["tmp_name"]);
 
         if (!empty($temp_filename)) {
-            if (!$this->validateUploadedFileFormat($file)) {
+            if (!$this->validateUploadedFileFormat($_FILES["acf_icomoon_picker_config_file"]["name"])) {
                 add_settings_error(
                     'acf_icomoon_picker_general_settings',
                     'acf_icomoon_picker_config_file',
@@ -219,7 +217,7 @@ class ACF_Icomoon_Picker_Admin
                 );
             }
 
-            $urls = wp_handle_upload($file, array('test_form' => FALSE));
+            $urls = wp_handle_upload($_FILES["acf_icomoon_picker_config_file"], array('test_form' => false));
 
             if (empty($urls) || !isset($urls['file'])) {
                 add_settings_error(
@@ -258,6 +256,8 @@ class ACF_Icomoon_Picker_Admin
     public function unzipIcomoonConfig($uploadedFile)
     {
         WP_Filesystem();
+        $this->doCleanFiles();
+        
         $isUnziped = unzip_file($uploadedFile['file'], $this->uploaded_config['path']);
 
         if ($isUnziped) {
@@ -277,9 +277,19 @@ class ACF_Icomoon_Picker_Admin
         $wp_filesystem->rmdir($this->uploaded_config['path'] .'/demo-files', true);
     }
 
-    private function validateUploadedFileFormat($file)
+    public function doCleanFiles()
     {
-        if (!isset($file['type']) || $file['type'] !== 'application/zip') {
+        WP_Filesystem();
+        global $wp_filesystem;
+
+        $wp_filesystem->rmdir($this->uploaded_config['path'] .'/', true);
+    }
+
+    private function validateUploadedFileFormat($file_name)
+    {
+        $file_info = wp_check_filetype(basename($file_name));
+
+        if (!isset($file_info['type']) || $file_info['type'] !== 'application/zip') {
             return false;
         }
 
