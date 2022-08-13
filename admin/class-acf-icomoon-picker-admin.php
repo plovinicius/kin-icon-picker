@@ -164,7 +164,7 @@ class ACF_Icomoon_Picker_Admin
 
     public function displayPluginAdminSettings()
     {
-        $error_message = isset($_GET['error_message']) ? sanitize_key($_GET['error_message']) : null;
+        $error_message = isset($_GET['error_message']) ? sanitize_text_field($_GET['error_message']) : null;
 
         if ($error_message) {
             do_action( 'admin_notices', esc_html($error_message) );
@@ -248,7 +248,7 @@ class ACF_Icomoon_Picker_Admin
         }
 
         $oldConfigFile = isset($_POST['acf_icomoon_picker_old_config_file']) 
-            ? sanitize_key($_POST['acf_icomoon_picker_old_config_file']) 
+            ? sanitize_text_field($_POST['acf_icomoon_picker_old_config_file']) 
             : null;
 
         if (!empty($oldConfigFile)) {
