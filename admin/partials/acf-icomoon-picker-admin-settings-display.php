@@ -16,7 +16,7 @@
     <div class="acf-icomoon-picker__header">
         <h2>
             <i class="acf-tab-icon dashicons dashicons-welcome-widgets-menus"></i>
-            <?php _e('ACF Icomoon Picker - Settings', 'acf-icomoon-picker'); ?>
+            <?php _e('Kin Icon Picker - Settings', 'acf-icomoon-picker'); ?>
         </h2>
     </div>
 

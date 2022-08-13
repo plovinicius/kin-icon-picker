@@ -138,7 +138,7 @@ class ACF_Icomoon_Picker_Admin
 
             <div class="notice error is-dismissible">
                 <p>
-                    <?php _e("Can't use <strong>ACF Icomoon Picker</strong> without <strong>Advanced Custom Field</strong> been activated.", "acf-icomoon-picker"); ?>
+                    <?php _e("Can't use <strong>Kin Icon Picker</strong> without <strong>Advanced Custom Field</strong> been activated.", "acf-icomoon-picker"); ?>
                 </p>
             </div>
         <?php }
@@ -147,8 +147,8 @@ class ACF_Icomoon_Picker_Admin
     public function addPluginAdminMenu()
     {
         add_menu_page(
-            'ACF Icomoon Picker - Settings',
-            'ACF Icomoon Picker',
+            'Kin Icon Picker - Settings',
+            'Kin Icon Picker',
             'administrator',
             $this->plugin_name,
             array( $this, 'displayPluginAdminSettings' ),

@@ -1,14 +1,14 @@
-=== Advanced Custom Fields: Icomoon Picker Field ===
+=== Kin Icon Picker ===
 Contributors: Paulo Vinicius
 Tags: acf, fields, icomoon, custom fields, meta, icon
-Requires at least: 5.2
-Tested up to: 5.8
-Requires PHP: 5.6
+Requires at least: 5.9
+Tested up to: 8.0
+Requires PHP: 7.4
 Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Powerful plugin to add Icomoon support to plugin Advanced Custom Fields (ACF). From developer to developer.
+Powerful plugin to add Icons support to a kown custom fields plugin. From developer to developer.
 
 == Description ==
 
@@ -16,18 +16,18 @@ This plugin came from a need, it was built for personal use but, I decide to pub
 
 == Features ==
 * Simple & Intuitive
-* Icomoon Picker
+* Icon Picker
 
 = Compatibility =
 
-This ACF field type is compatible with:
-* ACF 5
+This custom field type is compatible with:
+* ACF 5+
 
 == Installation ==
 
 1. Copy the `acf-icomoon-picker` folder into your `wp-content/plugins` folder
-2. Activate the Icomoon Picker plugin via the plugins admin page
-3. Create a new field via ACF and select the Icomoon Picker type
+2. Activate the Kin Icon Picker plugin via the plugins admin page
+3. Create a new field via custom fields and select the Icon Picker type
 4. Read the description above for usage instructions
 
 == Changelog ==

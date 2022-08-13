@@ -1,6 +1,6 @@
-# ACF Icomoon Picker Field
+# Kin Icon Picker Field
 
-Welcome to the ACF Icomoon Picker repository on GitHub.
+Welcome to the Kin Picker repository on GitHub.
 
 This plugin came from a need, it was built for personal use but, I decide to publish and hope 
 this it will be useful for everyone.
@@ -11,8 +11,8 @@ This plugin is an addon that works with Advanced Custom Fields plugin. It's an I
 
 ## Requirements
 - Advanced Custom Fields
-- Wordpress v5.2+
-- PHP 5.6+
+- Wordpress v5.9+
+- PHP 7.4+
  
 ## How to use, steps:
 
@@ -37,7 +37,7 @@ This plugin is an addon that works with Advanced Custom Fields plugin. It's an I
 
 - Download the package (.zip).
 
-- Upload the .zip file on the ACF Icomoon Picker settings page and choose if there is a need 
+- Upload the .zip file on the Kin Icon Picker settings page and choose if there is a need 
 of loading the fonts and styles(.css) on the front-end, if you have already loaded, leave 
 this field unchecked.
 

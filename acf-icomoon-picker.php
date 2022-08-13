@@ -1,9 +1,9 @@
 <?php
 
 /*
-Plugin Name: ACF Icomoon Picker
+Plugin Name: Kin Icon Picker
 Plugin URI: https://github.com/plovinicius/acf-icomoon-picker
-Description: Powerful plugin to add Icomoon support to plugin Advanced Custom Fields (ACF)
+Description: Powerful plugin to add Icons support to a known custom fields plugin
 Version: 1.0.0
 Author: Paulo Vinicius
 Author URI: https://github.com/plovinicius
