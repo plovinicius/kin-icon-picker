@@ -170,7 +170,6 @@ class ACF_Icomoon_Picker
         $plugin_public = new ACF_Icomoon_Picker_Public( $this->getPluginName(), $this->getVersion() );
 
         $this->loader->addAction( 'wp_enqueue_scripts', $plugin_public, 'enqueueStyles' );
-        $this->loader->addAction( 'wp_enqueue_scripts', $plugin_public, 'enqueueScripts' );
     }
 
     /**

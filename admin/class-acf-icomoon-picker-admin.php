@@ -112,7 +112,12 @@ class ACF_Icomoon_Picker_Admin
         // Register main js file to be enqueued
         wp_register_script('app-js', "{$this->assetsUrl}js/app.min.js", array('jquery'), $this->version, true);
         
-        $contents = file_get_contents($this->uploaded_config['path'] .'/selection.json');
+        $file_path = $this->uploaded_config['path'] .'/selection.json';
+
+        ob_start();
+        include $file_path;
+        $contents = ob_get_clean();
+
         $data = json_decode( $contents );
 
         // Localize script exposing $data contents
@@ -198,7 +203,7 @@ class ACF_Icomoon_Picker_Admin
             );
         }
 
-        if (!isset($_FILES["acf_icomoon_picker_config_file"]) || empty($_FILES["acf_icomoon_picker_config_file"]["name"])) {
+        if (!isset($_FILES["acf_icomoon_picker_config_file"]["name"]) || empty($_FILES["acf_icomoon_picker_config_file"]["name"])) {
             add_settings_error(
                 'acf_icomoon_picker_general_settings',
                 'acf_icomoon_picker_config_file',
@@ -206,10 +211,10 @@ class ACF_Icomoon_Picker_Admin
             );
         }
 
-        $temp_filename = sanitize_file_name($_FILES["acf_icomoon_picker_config_file"]["tmp_name"]);
+        $file_name = sanitize_file_name($_FILES["acf_icomoon_picker_config_file"]["name"]);
 
-        if (!empty($temp_filename)) {
-            if (!$this->validateUploadedFileFormat($_FILES["acf_icomoon_picker_config_file"]["name"])) {
+        if (!empty($file_name)) {
+            if (!$this->validateUploadedFileFormat($file_name)) {
                 add_settings_error(
                     'acf_icomoon_picker_general_settings',
                     'acf_icomoon_picker_config_file',
