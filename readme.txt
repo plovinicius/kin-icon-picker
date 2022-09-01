@@ -25,7 +25,7 @@ This custom field type is compatible with:
 
 == Installation ==
 
-1. Copy the `acf-icomoon-picker` folder into your `wp-content/plugins` folder
+1. Copy the `kin-icon-picker` folder into your `wp-content/plugins` folder
 2. Activate the Kin Icon Picker plugin via the plugins admin page
 3. Create a new field via custom fields and select the Icon Picker type
 4. Read the description above for usage instructions

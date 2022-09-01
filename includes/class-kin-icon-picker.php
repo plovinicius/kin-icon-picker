@@ -8,8 +8,8 @@
  *
  * @since      1.0.0
  *
- * @package    ACF_Icomoon_Picker
- * @subpackage ACF_Icomoon_Picker/includes
+ * @package    Kin_Icon_Picker
+ * @subpackage Kin_Icon_Picker/includes
  */
 
 /**
@@ -22,10 +22,10 @@
  * version of the plugin.
  *
  * @since      1.0.0
- * @package    ACF_Icomoon_Picker
- * @subpackage ACF_Icomoon_Picker/includes
+ * @package    Kin_Icon_Picker
+ * @subpackage Kin_Icon_Picker/includes
  */
-class ACF_Icomoon_Picker
+class Kin_Icon_Picker
 {
     /**
      * The loader that's responsible for maintaining and registering all hooks that power
@@ -33,7 +33,7 @@ class ACF_Icomoon_Picker
      *
      * @since    1.0.0
      * @access   protected
-     * @var      ACF_Icomoon_Picker_Loader    $loader    Maintains and registers all hooks for the plugin.
+     * @var      Kin_Icon_Picker_Loader    $loader    Maintains and registers all hooks for the plugin.
      */
     protected $loader;
 
@@ -66,19 +66,19 @@ class ACF_Icomoon_Picker
      */
     public function __construct()
     {
-        if ( defined( 'ACF_ICOMOON_PICKER_VERSION' ) ) {
-            $this->version = ACF_ICOMOON_PICKER_VERSION;
+        if ( defined( 'KIN_ICON_PICKER_VERSION' ) ) {
+            $this->version = KIN_ICON_PICKER_VERSION;
         } else {
             $this->version = '1.0.0';
         }
 
-        $this->plugin_name = 'acf-icomoon-picker';
+        $this->plugin_name = 'kin-icon-picker';
 
         $this->loadDependencies();
         $this->setLocale();
         $this->defineAdminHooks();
 
-        if (esc_attr( get_option('acf_icomoon_picker_load_style') )) {
+        if (esc_attr( get_option('kin_icon_picker_load_style') )) {
             $this->definePublicHooks();
         }
     }
@@ -88,10 +88,10 @@ class ACF_Icomoon_Picker
      *
      * Include the following files that make up the plugin:
      *
-     * - ACF_Icomoon_Picker_Loader. Orchestrates the hooks of the plugin.
-     * - ACF_Icomoon_Picker_i18n. Defines internationalization functionality.
-     * - ACF_Icomoon_Picker_Admin. Defines all hooks for the admin area.
-     * - ACF_Icomoon_Picker_Public. Defines all hooks for the public side of the site.
+     * - Kin_Icon_Picker_Loader. Orchestrates the hooks of the plugin.
+     * - Kin_Icon_Picker_i18n. Defines internationalization functionality.
+     * - Kin_Icon_Picker_Admin. Defines all hooks for the admin area.
+     * - Kin_Icon_Picker_Public. Defines all hooks for the public side of the site.
      *
      * Create an instance of the loader which will be used to register the hooks
      * with WordPress.
@@ -105,32 +105,32 @@ class ACF_Icomoon_Picker
          * The class responsible for orchestrating the actions and filters of the
          * core plugin.
          */
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-acf-icomoon-picker-loader.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-kin-icon-picker-loader.php';
 
         /**
          * The class responsible for defining internationalization functionality
          * of the plugin.
          */
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-acf-icomoon-picker-i18n.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-kin-icon-picker-i18n.php';
 
         /**
          * The class responsible for defining all actions that occur in the admin area.
          */
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-acf-icomoon-picker-admin.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-kin-icon-picker-admin.php';
 
         /**
          * The class responsible for defining all actions that occur in the public-facing
          * side of the site.
          */
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-acf-icomoon-picker-public.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-kin-icon-picker-public.php';
 
-        $this->loader = new ACF_Icomoon_Picker_Loader();
+        $this->loader = new Kin_Icon_Picker_Loader();
     }
 
     /**
      * Define the locale for this plugin for internationalization.
      *
-     * Uses the ACF_Icomoon_Picker_i18n class in order to set the domain and to register the hook
+     * Uses the Kin_Icon_Picker_i18n class in order to set the domain and to register the hook
      * with WordPress.
      *
      * @since    1.0.0
@@ -138,7 +138,7 @@ class ACF_Icomoon_Picker
      */
     private function setLocale()
     {
-        $plugin_i18n = new ACF_Icomoon_Picker_i18n();
+        $plugin_i18n = new Kin_Icon_Picker_i18n();
 
         $this->loader->addAction( 'plugins_loaded', $plugin_i18n, 'loadPluginTextdomain' );
     }
@@ -152,7 +152,7 @@ class ACF_Icomoon_Picker
      */
     private function defineAdminHooks()
     {
-        $plugin_admin = new ACF_Icomoon_Picker_Admin( $this->getPluginName(), $this->getVersion() );
+        $plugin_admin = new Kin_Icon_Picker_Admin( $this->getPluginName(), $this->getVersion() );
 
         $this->loader->addAction( 'admin_enqueue_scripts', $plugin_admin, 'enqueueStyles' );
         $this->loader->addAction( 'acf/input/admin_enqueue_scripts', $plugin_admin, 'enqueueScripts' );
@@ -167,7 +167,7 @@ class ACF_Icomoon_Picker
      */
     private function definePublicHooks()
     {
-        $plugin_public = new ACF_Icomoon_Picker_Public( $this->getPluginName(), $this->getVersion() );
+        $plugin_public = new Kin_Icon_Picker_Public( $this->getPluginName(), $this->getVersion() );
 
         $this->loader->addAction( 'wp_enqueue_scripts', $plugin_public, 'enqueueStyles' );
     }
@@ -198,7 +198,7 @@ class ACF_Icomoon_Picker
      * The reference to the class that orchestrates the hooks with the plugin.
      *
      * @since     1.0.0
-     * @return    ACF_Icomoon_Picker_Loader    Orchestrates the hooks of the plugin.
+     * @return    Kin_Icon_Picker_Loader    Orchestrates the hooks of the plugin.
      */
     public function getLoader()
     {

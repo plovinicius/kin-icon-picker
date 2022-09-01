@@ -7,10 +7,10 @@
  * enqueue the admin-specific stylesheet and JavaScript.
  *
  * @since      1.0.0
- * @package    ACF_Icomoon_Picker
- * @subpackage ACF_Icomoon_Picker/admin
+ * @package    Kin_Icon_Picker
+ * @subpackage Kin_Icon_Picker/admin
  */
-class ACF_Icomoon_Picker_Admin
+class Kin_Icon_Picker_Admin
 {
     /**
      * @since    1.0.0
@@ -48,8 +48,8 @@ class ACF_Icomoon_Picker_Admin
         // FIXME: refactor this path, remove duplicated code
         $destination = wp_upload_dir();
         $this->uploaded_config = [
-            'path' => $destination['basedir'] .'/acf-icomoon-picker/settings',
-            'url' => $destination['baseurl'] .'/acf-icomoon-picker/settings'
+            'path' => $destination['basedir'] .'/kin-icon-picker/settings',
+            'url' => $destination['baseurl'] .'/kin-icon-picker/settings'
         ];
 
         $this->assetsUrl = plugin_dir_url( __FILE__ ) .'../assets/';
@@ -75,16 +75,16 @@ class ACF_Icomoon_Picker_Admin
          * This function is provided for demonstration purposes only.
          *
          * An instance of this class should be passed to the run() function
-         * defined in ACF_Icomoon_Picker_Loader as all of the hooks are defined
+         * defined in Kin_Icon_Picker_Loader as all of the hooks are defined
          * in that particular class.
          *
-         * The ACF_Icomoon_Picker_Loader will then create the relationship
+         * The Kin_Icon_Picker_Loader will then create the relationship
          * between the defined hooks and the functions defined in this
          * class.
          */
 
         wp_enqueue_style( $this->plugin_name, "{$this->assetsUrl}css/admin.css", array(), $this->version, 'all' );
-        wp_enqueue_style( 'acf-icomoon-css', "{$this->uploaded_config['url']}/style.css", array(), $this->version, 'all' );
+        wp_enqueue_style( 'kin-icon-picker-css', "{$this->uploaded_config['url']}/style.css", array(), $this->version, 'all' );
     }
 
     /**
@@ -98,10 +98,10 @@ class ACF_Icomoon_Picker_Admin
          * This function is provided for demonstration purposes only.
          *
          * An instance of this class should be passed to the run() function
-         * defined in ACF_Icomoon_Picker_Loader as all of the hooks are defined
+         * defined in Kin_Icon_Picker_Loader as all of the hooks are defined
          * in that particular class.
          *
-         * The ACF_Icomoon_Picker_Loader will then create the relationship
+         * The Kin_Icon_Picker_Loader will then create the relationship
          * between the defined hooks and the functions defined in this
          * class.
          */
@@ -139,11 +139,11 @@ class ACF_Icomoon_Picker_Admin
         }
 
         if (!class_exists('acf')) {
-            deactivate_plugins('acf-icomoon-picker/acf-icomoon-picker.php'); ?>
+            deactivate_plugins('kin-icon-picker/kin-icon-picker.php'); ?>
 
             <div class="notice error is-dismissible">
                 <p>
-                    <?php _e("Can't use <strong>Kin Icon Picker</strong> without <strong>Advanced Custom Field</strong> been activated.", "acf-icomoon-picker"); ?>
+                    <?php _e("Can't use <strong>Kin Icon Picker</strong> without <strong>Advanced Custom Field</strong> been activated.", "kin-icon-picker"); ?>
                 </p>
             </div>
         <?php }
@@ -175,8 +175,8 @@ class ACF_Icomoon_Picker_Admin
 
     public function registerAndBuildFields()
     {
-        register_setting('acf_icomoon_picker_general_settings', 'acf_icomoon_picker_config_file', array($this, 'handleFileUpload'));
-        register_setting('acf_icomoon_picker_general_settings', 'acf_icomoon_picker_load_style', array($this, 'handleLoadStyle'));
+        register_setting('kin_icon_picker_general_settings', 'kin_icon_picker_config_file', array($this, 'handleFileUpload'));
+        register_setting('kin_icon_picker_general_settings', 'kin_icon_picker_load_style', array($this, 'handleLoadStyle'));
     }
 
     public function handleLoadStyle($data) {
@@ -187,48 +187,48 @@ class ACF_Icomoon_Picker_Admin
     {
         $nonce = isset($_POST['settings_nonce']) ? sanitize_text_field($_POST['settings_nonce']) : null;
 
-        if (!$nonce || !wp_verify_nonce($nonce, 'acf_icomoon_picker_settings_nonce')) {
+        if (!$nonce || !wp_verify_nonce($nonce, 'kin_icon_picker_settings_nonce')) {
             add_settings_error(
-                'acf_icomoon_picker_general_settings',
-                'acf_icomoon_picker_config_file',
-                __('Nonce is invalid, please, try to reload the page and upload again.', 'acf-icomoon-picker')
+                'kin_icon_picker_general_settings',
+                'kin_icon_picker_config_file',
+                __('Nonce is invalid, please, try to reload the page and upload again.', 'kin-icon-picker')
             );
         };
 
         if (!current_user_can('upload_files')) {
             add_settings_error(
-                'acf_icomoon_picker_general_settings',
-                'acf_icomoon_picker_config_file',
-                __('Sorry, you don\'t have permission.', 'acf-icomoon-picker')
+                'kin_icon_picker_general_settings',
+                'kin_icon_picker_config_file',
+                __('Sorry, you don\'t have permission.', 'kin-icon-picker')
             );
         }
 
-        if (!isset($_FILES["acf_icomoon_picker_config_file"]["name"]) || empty($_FILES["acf_icomoon_picker_config_file"]["name"])) {
+        if (!isset($_FILES["kin_icon_picker_config_file"]["name"]) || empty($_FILES["kin_icon_picker_config_file"]["name"])) {
             add_settings_error(
-                'acf_icomoon_picker_general_settings',
-                'acf_icomoon_picker_config_file',
-                __('File not found, please, try to upload a .zip file again.', 'acf-icomoon-picker')
+                'kin_icon_picker_general_settings',
+                'kin_icon_picker_config_file',
+                __('File not found, please, try to upload a .zip file again.', 'kin-icon-picker')
             );
         }
 
-        $file_name = sanitize_file_name($_FILES["acf_icomoon_picker_config_file"]["name"]);
+        $file_name = sanitize_file_name($_FILES["kin_icon_picker_config_file"]["name"]);
 
         if (!empty($file_name)) {
             if (!$this->validateUploadedFileFormat($file_name)) {
                 add_settings_error(
-                    'acf_icomoon_picker_general_settings',
-                    'acf_icomoon_picker_config_file',
-                    __('Uploaded file is invalid, please, provide a .zip file.', 'acf-icomoon-picker')
+                    'kin_icon_picker_general_settings',
+                    'kin_icon_picker_config_file',
+                    __('Uploaded file is invalid, please, provide a .zip file.', 'kin-icon-picker')
                 );
             }
 
-            $urls = wp_handle_upload($_FILES["acf_icomoon_picker_config_file"], array('test_form' => false));
+            $urls = wp_handle_upload($_FILES["kin_icon_picker_config_file"], array('test_form' => false));
 
             if (empty($urls) || !isset($urls['file'])) {
                 add_settings_error(
-                    'acf_icomoon_picker_general_settings',
-                    'acf_icomoon_picker_config_file',
-                    __('File is invalid, please, try to upload a .zip file again.', 'acf-icomoon-picker')
+                    'kin_icon_picker_general_settings',
+                    'kin_icon_picker_config_file',
+                    __('File is invalid, please, try to upload a .zip file again.', 'kin-icon-picker')
                 );
             }
 
@@ -236,9 +236,9 @@ class ACF_Icomoon_Picker_Admin
 
             if (!$response) {
                 add_settings_error(
-                    'acf_icomoon_picker_general_settings',
-                    'acf_icomoon_picker_config_file',
-                    __('An unexpected error occurred, please, verify the directory permissions.', 'acf-icomoon-picker')
+                    'kin_icon_picker_general_settings',
+                    'kin_icon_picker_config_file',
+                    __('An unexpected error occurred, please, verify the directory permissions.', 'kin-icon-picker')
                 );
             }
 
@@ -247,8 +247,8 @@ class ACF_Icomoon_Picker_Admin
             return sanitize_text_field($this->uploaded_config['path']);
         }
 
-        $oldConfigFile = isset($_POST['acf_icomoon_picker_old_config_file']) 
-            ? sanitize_text_field($_POST['acf_icomoon_picker_old_config_file']) 
+        $oldConfigFile = isset($_POST['kin_icon_picker_old_config_file']) 
+            ? sanitize_text_field($_POST['kin_icon_picker_old_config_file']) 
             : null;
 
         if (!empty($oldConfigFile)) {

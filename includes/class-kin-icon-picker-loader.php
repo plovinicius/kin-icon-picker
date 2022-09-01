@@ -7,10 +7,10 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    ACF_Icomoon_Picker
- * @subpackage ACF_Icomoon_Picker/includes
+ * @package    Kin_Icon_Picker
+ * @subpackage Kin_Icon_Picker/includes
  */
-class ACF_Icomoon_Picker_Loader
+class Kin_Icon_Picker_Loader
 {
     /**
      * The array of actions registered with WordPress.

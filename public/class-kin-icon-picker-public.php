@@ -7,10 +7,10 @@
  * enqueue the public-facing stylesheet and JavaScript.
  *
  * @since      1.0.0
- * @package    ACF_Icomoon_Picker
- * @subpackage ACF_Icomoon_Picker/public
+ * @package    Kin_Icon_Picker
+ * @subpackage Kin_Icon_Picker/public
  */
-class ACF_Icomoon_Picker_Public
+class Kin_Icon_Picker_Public
 {
 
     /**
@@ -49,8 +49,8 @@ class ACF_Icomoon_Picker_Public
         // FIXME: refactor this path, remove duplicated code
         $destination = wp_upload_dir();
         $this->uploaded_config = [
-            'path' => $destination['basedir'] .'/acf-icomoon-picker/settings',
-            'url' => $destination['baseurl'] .'/acf-icomoon-picker/settings'
+            'path' => $destination['basedir'] .'/kin-icon-picker/settings',
+            'url' => $destination['baseurl'] .'/kin-icon-picker/settings'
         ];
         // ----------------------------------------------------------------------
 
@@ -69,14 +69,14 @@ class ACF_Icomoon_Picker_Public
          * This function is provided for demonstration purposes only.
          *
          * An instance of this class should be passed to the run() function
-         * defined in ACF_Icomoon_Picker_Loader as all of the hooks are defined
+         * defined in Kin_Icon_Picker_Loader as all of the hooks are defined
          * in that particular class.
          *
-         * The ACF_Icomoon_Picker_Loader will then create the relationship
+         * The Kin_Icon_Picker_Loader will then create the relationship
          * between the defined hooks and the functions defined in this
          * class.
          */
 
-        wp_enqueue_style( 'acf-icomoon-picker-style', "{$this->uploaded_config['url']}/style.css", array(), $this->version, 'all' );
+        wp_enqueue_style( 'kin-icon-picker-style', "{$this->uploaded_config['url']}/style.css", array(), $this->version, 'all' );
     }
 }

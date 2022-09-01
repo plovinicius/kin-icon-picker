@@ -4,21 +4,21 @@
 if( ! defined( 'ABSPATH' ) ) exit;
 
 // check if class already exists
-if( !class_exists('icomoonpicker_acf_field_icomoon_picker') ) :
+if( !class_exists('kin_icon_picker_field') ) :
 
-class icomoonpicker_acf_field_icomoon_picker extends acf_field
+class kin_icon_picker_field extends acf_field
 {
 	
 	function __construct( $settings ) {
 		/*
 		*  name (string) Single word, no spaces. Underscores allowed
 		*/
-		$this->name = 'icomoon_picker';
+		$this->name = 'kin_icon_picker';
 
 		/*
 		*  label (string) Multiple words, can include spaces, visible when selecting a field type
 		*/
-		$this->label = __('Icomoon Picker', 'acf-icomoon-picker');
+		$this->label = __('Kin Icon Picker', 'kin-icon-picker');
 
 		/*
 		*  category (string) basic | content | choice | relational | jquery | layout | CUSTOM GROUP NAME
@@ -33,10 +33,10 @@ class icomoonpicker_acf_field_icomoon_picker extends acf_field
 
 		/*
 		*  l10n (array) Array of strings that are used in JavaScript. This allows JS strings to be translated in PHP and loaded via:
-		*  var message = acf._e('icomoon_picker', 'error');
+		*  var message = acf._e('kin_icon_picker', 'error');
 		*/
 		$this->l10n = array(
-			'error'	=> __('Error! Please enter a higher value', 'acf-icomoon-picker'),
+			'error'	=> __('Error! Please enter a higher value', 'kin-icon-picker'),
 		);
 
 		/*
@@ -70,7 +70,7 @@ class icomoonpicker_acf_field_icomoon_picker extends acf_field
                 <select class="icomoon-picker-select2" name="<?php echo esc_attr($field['name']); ?>"
                     data-selected="<?php echo esc_attr($field['value']); ?>">
                     <option value="" selected>
-                        <?php _e('Select', 'acf-icomoon-picker'); ?>
+                        <?php _e('Select', 'kin-icon-picker'); ?>
                     </option>
                 </select>
             </label>
@@ -106,7 +106,7 @@ class icomoonpicker_acf_field_icomoon_picker extends acf_field
 }
 
 // initialize
-new icomoonpicker_acf_field_icomoon_picker( $this->settings );
+new kin_icon_picker_field( $this->settings );
 
 // class_exists check
 endif;

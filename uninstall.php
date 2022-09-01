@@ -14,7 +14,7 @@
 * - Repeat things for multisite. Once for a single site in the network, once sitewide.
 *
 * @since      1.0.0
-* @package    ACF_Icomoon_Picker
+* @package    Kin_Icon_Picker
 */
 
 // If uninstall not called from WordPress, then exit.

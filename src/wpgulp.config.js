@@ -110,16 +110,16 @@ const zipIgnoreGlob = [
 
 // >>>>> Translation options.
 // Your text domain here.
-const textDomain = 'acf-icomoon-picker';
+const textDomain = 'kin-icon-picker';
 
 // Name of the translation file.
-const translationFile = 'acf-icomoon-picker.pot';
+const translationFile = 'kin-icon-picker.pot';
 
 // Where to save the translation files.
 const translationDestination = './languages';
 
 // Package name.
-const packageName = 'acf-icomoon-picker';
+const packageName = 'kin-icon-picker';
 
 // Where can users report bugs.
 const bugReport = 'https://AhmadAwais.com/contact/';

@@ -1,6 +1,6 @@
 <?php
 
-class acf_icomoon_picker_plugin
+class kin_icon_picker_plugin
 {
     var $settings;
 
@@ -22,6 +22,6 @@ class acf_icomoon_picker_plugin
         if( !$version ) $version = 5;
 
         // include
-        include_once($this->settings['path'] .'../../fields/class-icomoonpicker-acf-field-icomoon-field-v' . $version . '.php');
+        include_once($this->settings['path'] .'../../fields/class-kin-icon-picker-v' . $version . '.php');
     }
 }

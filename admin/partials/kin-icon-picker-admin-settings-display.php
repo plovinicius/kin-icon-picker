@@ -1,10 +1,10 @@
 <?php
-    $uploadedPath = get_option('acf_icomoon_picker_config_file');
+    $uploadedPath = get_option('kin_icon_picker_config_file');
     $files = [];
     $loadStyle = 0;
 
-    if (get_option('acf_icomoon_picker_load_style') ) {
-        $loadStyle = !!get_option('acf_icomoon_picker_load_style');
+    if (get_option('kin_icon_picker_load_style') ) {
+        $loadStyle = !!get_option('kin_icon_picker_load_style');
     }
 
     if (is_dir($uploadedPath)) {
@@ -16,7 +16,7 @@
     <div class="acf-icomoon-picker__header">
         <h2>
             <i class="acf-tab-icon dashicons dashicons-welcome-widgets-menus"></i>
-            <?php _e('Kin Icon Picker - Settings', 'acf-icomoon-picker'); ?>
+            <?php _e('Kin Icon Picker - Settings', 'kin-icon-picker'); ?>
         </h2>
     </div>
 
@@ -29,28 +29,28 @@
 
         <div class="acf-icomoon-picker__form">
             <div class="acf-icomoon-picker__form__description">
-                <?php _e('For the plugin to work correctly, it is necessary to upload the .zip file exported from Icomoon.', 'acf-icomoon-picker'); ?>
+                <?php _e('For the plugin to work correctly, it is necessary to upload the .zip file exported from Icomoon.', 'kin-icon-picker'); ?>
             </div>
 
             <form method="POST" action="options.php" enctype="multipart/form-data">
                 <?php
-                    settings_fields( 'acf_icomoon_picker_general_settings' );
-                    do_settings_sections( 'acf_icomoon_picker_general_settings' );
-                    wp_nonce_field('acf_icomoon_picker_settings_nonce', 'settings_nonce');
+                    settings_fields( 'kin_icon_picker_general_settings' );
+                    do_settings_sections( 'kin_icon_picker_general_settings' );
+                    wp_nonce_field('kin_icon_picker_settings_nonce', 'settings_nonce');
                 ?>
 
                 <div class="acf-icomoon-picker__form-control">
                     <div class="acf-icomoon-picker__form-col">
-                        <label for="acf_icomoon_picker_load_style" class="acf-icomoon-picker__form__checkbox">
+                        <label for="kin_icon_picker_load_style" class="acf-icomoon-picker__form__checkbox">
                             <span class="acf-icomoon-picker__form__checkbox-switch">
-                                <input id="acf_icomoon_picker_load_style" type="checkbox" name="acf_icomoon_picker_load_style"
+                                <input id="kin_icon_picker_load_style" type="checkbox" name="kin_icon_picker_load_style"
                                    value="1" <?php if ($loadStyle) echo esc_attr('checked'); ?> />
 
                                 <span class="slider"></span>
                             </span>
 
                             <span class="acf-icomoon-picker__form__checkbox-label">
-                                <?php _e('Load Icomoon fonts and styles (css) on the front-end.', 'acf-icomoon-picker'); ?>
+                                <?php _e('Load Icomoon fonts and styles (css) on the front-end.', 'kin-icon-picker'); ?>
                             </span>
                         </label>
                     </div>
@@ -59,15 +59,15 @@
                 <div class="acf-icomoon-picker__form-control">
                     <div class="acf-icomoon-picker__form-col">
                         <div class="acf-icomoon-picker__form__upload">
-                            <label for="acf_icomoon_picker_config_file">
-                                <input id="acf_icomoon_picker_config_file" type="file" accept=".zip"
-                                   name="acf_icomoon_picker_config_file" value="<?php echo esc_attr($uploadedPath); ?>" />
+                            <label for="kin_icon_picker_config_file">
+                                <input id="kin_icon_picker_config_file" type="file" accept=".zip"
+                                   name="kin_icon_picker_config_file" value="<?php echo esc_attr($uploadedPath); ?>" />
 
-                                <input type="hidden" name="acf_icomoon_picker_old_config_file"
+                                <input type="hidden" name="kin_icon_picker_old_config_file"
                                        value="<?php echo esc_attr($uploadedPath); ?>" />
 
                                 <span class="acf-icomoon-picker__form__upload-text text">
-                                    <?php _e('Update Icomoon files (.zip)', 'acf-icomoon-picker'); ?>
+                                    <?php _e('Update Icomoon files (.zip)', 'kin-icon-picker'); ?>
                                 </span>
 
                                 <span class="acf-icomoon-picker__form__upload-filename filename"></span>
@@ -78,7 +78,7 @@
 
                 <div class="acf-icomoon-picker__files">
                     <h3>
-                        <?php _e('Files uploaded from .zip', 'acf-icomoon-picker'); ?>
+                        <?php _e('Files uploaded from .zip', 'kin-icon-picker'); ?>
                     </h3>
 
                     <?php if (!empty($files)): ?>
@@ -91,7 +91,7 @@
                         </ul>
                     <?php else: ?>
                         <p>
-                            <?php _e('Please, upload Icomoon files clicking on above button!', 'acf-icomoon-picker'); ?>
+                            <?php _e('Please, upload Icomoon files clicking on above button!', 'kin-icon-picker'); ?>
                         </p>
                     <?php endif; ?>
                 </div>

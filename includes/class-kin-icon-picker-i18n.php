@@ -6,10 +6,10 @@
  * so that it is ready for translation.
  *
  * @since      1.0.0
- * @package    ACF_Icomoon_Picker
- * @subpackage ACF_Icomoon_Picker/includes
+ * @package    Kin_Icon_Picker
+ * @subpackage Kin_Icon_Picker/includes
  */
-class ACF_Icomoon_Picker_i18n
+class Kin_Icon_Picker_i18n
 {
     /**
      * Load the plugin text domain for translation.
@@ -18,6 +18,6 @@ class ACF_Icomoon_Picker_i18n
      */
     public function loadPluginTextdomain()
     {
-        load_plugin_textdomain( 'acf-icomoon-picker', false, plugin_basename( dirname( __FILE__ ) ) . '/lang' );
+        load_plugin_textdomain( 'kin-icon-picker', false, plugin_basename( dirname( __FILE__ ) ) . '/lang' );
     }
 }
