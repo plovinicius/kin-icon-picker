@@ -1,17 +1,15 @@
 # Kin Icon Picker Field
 
-Welcome to the Kin Picker repository on GitHub.
+Welcome to the Kin Icon Picker.
 
-This plugin came from a need, it was built for personal use but, I decide to publish and hope 
-this it will be useful for everyone.
+This plugin came from a need, it was built for personal use but, I decided to publish and hope be useful for everyone.
 
 ## About
-This plugin is an addon that works with Advanced Custom Fields plugin. It's an Icon Picker using 
-[IcoMoon](https://icomoon.io/).
+This plugin is an addon for Advanced Custom Fields plugin. It's an Icon Picker that uses [IcoMoon](https://icomoon.io/).
 
 ## Requirements
 - Advanced Custom Fields
-- Wordpress v5.9+
+- WordPress v5.9+
 - PHP 7.4+
  
 ## How to use, steps:
