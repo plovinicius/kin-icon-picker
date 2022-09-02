@@ -84,7 +84,21 @@ class Kin_Icon_Picker_Admin
          */
 
         wp_enqueue_style( $this->plugin_name, "{$this->assetsUrl}css/admin.css", array(), $this->version, 'all' );
-        wp_enqueue_style( 'kin-icon-picker-css', "{$this->uploaded_config['url']}/style.css", array(), $this->version, 'all' );
+
+        if (file_exists("{$this->uploaded_config['url']}/style.css")) {
+            wp_enqueue_style( 'kin-icon-picker-css', "{$this->uploaded_config['url']}/style.css", array(), $this->version, 'all' );
+        }
+    }
+
+    /**
+     * Register the JavaScript for the settings page in admin area.
+     *
+     * @since    1.0.0
+     */
+    public function enqueueSettingsScripts()
+    {
+        wp_register_script('app-js', "{$this->assetsUrl}js/app.min.js", array('jquery'), $this->version, true);
+        wp_enqueue_script( 'app-js' );
     }
 
     /**
@@ -114,16 +128,18 @@ class Kin_Icon_Picker_Admin
         
         $file_path = $this->uploaded_config['path'] .'/selection.json';
 
-        ob_start();
-        include $file_path;
-        $contents = ob_get_clean();
+        if (file_exists($file_path)) {
+            ob_start();
+            include $file_path;
+            $contents = ob_get_clean();
 
-        $data = json_decode( $contents );
+            $data = json_decode( $contents );
 
-        // Localize script exposing $data contents
-        wp_localize_script( 'app-js', 'icomoonJSON', [
-            'full_data' => $data
-        ]);
+            // Localize script exposing $data contents
+            wp_localize_script( 'app-js', 'icomoonJSON', [
+                'full_data' => $data
+            ]);
+        }
 
         // Enqueues main js file
         wp_enqueue_script( 'app-js' );

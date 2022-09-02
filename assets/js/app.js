@@ -1,6 +1,12 @@
 "use strict";
 
 (function ($) {
+  // Return if it's inside Settings page
+  if ($('.acf-icomoon-picker__form').length) {
+    return false;
+  } // otherwise (it's on some edit page), loads everything
+
+
   acf.addAction('load', function ($el) {
     initSelect2();
   });
@@ -44,19 +50,17 @@
 "use strict";
 
 (function ($) {
-  $('#acf_icomoon_picker_config_file').on('change', function (e) {
-    e.preventDefault();
+  $('#kin_icon_picker_config_file').on('change', function (e) {
     var $input = $(this);
     var $parent = $input.closest('.acf-icomoon-picker__form__upload');
     var $filename = $parent.find('.filename');
     $filename.html('');
+    $parent.removeClass('uploaded');
 
-    if (!$input.val()) {
-      $parent.removeClass('uploaded');
+    if ($input.val()) {
+      var filenameSplit = $input.val().split("\\");
+      $filename.text(filenameSplit[filenameSplit.length - 1]);
+      $parent.addClass('uploaded');
     }
-
-    var filenameSplit = $input.val().split("\\");
-    $filename.text(filenameSplit[filenameSplit.length - 1]);
-    $parent.addClass('uploaded');
   });
 })(jQuery);

@@ -156,6 +156,9 @@ class Kin_Icon_Picker
 
         $this->loader->addAction( 'admin_enqueue_scripts', $plugin_admin, 'enqueueStyles' );
         $this->loader->addAction( 'acf/input/admin_enqueue_scripts', $plugin_admin, 'enqueueScripts' );
+
+        // Settings page
+        $this->loader->addAction( 'admin_print_scripts-toplevel_page_kin-icon-picker', $plugin_admin, 'enqueueSettingsScripts' );
     }
 
     /**

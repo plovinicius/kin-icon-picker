@@ -1,4 +1,10 @@
 (function($) {
+	// Return if it's inside Settings page
+	if ($('.acf-icomoon-picker__form').length) {
+		return false;
+	}
+	
+	// otherwise (it's on some edit page), loads everything
 	acf.addAction('load', function( $el ) {
 		initSelect2();
 	});

@@ -21,6 +21,7 @@
 .acf-icomoon-picker__form__upload-filename{display:none}
 .acf-icomoon-picker__form__upload.uploaded .acf-icomoon-picker__form__upload-filename{display:block}
 .acf-icomoon-picker__form__upload.uploaded .acf-icomoon-picker__form__upload-text{display:none}
+.acf-icomoon-picker__form__upload.uploaded>label{color:#155724;background-color:#d4edda;border-color:#155724}
 .acf-icomoon-picker__form__checkbox{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-align:center;-ms-flex-align:center;align-items:center;border:1px solid #ccc;padding:10px}
 .acf-icomoon-picker__form__checkbox-label{font-weight:500}
 .acf-icomoon-picker__form__checkbox-switch{position:relative;display:inline-block;width:50px;height:24px;margin-right:15px}
