@@ -9,7 +9,7 @@ This plugin is an addon for Advanced Custom Fields plugin. It's an Icon Picker t
 
 ## Requirements
 - Advanced Custom Fields
-- WordPress v5.9+
+- WordPress v6.0+
 - PHP 7.4+
  
 ## How to use, steps:
