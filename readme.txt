@@ -1,8 +1,8 @@
 === Kin Icon Picker ===
 Contributors: Paulo Vinicius
 Tags: acf, fields, icomoon, custom fields, meta, icon
-Requires at least: 5.9
-Tested up to: 6.0
+Requires at least: 6.0
+Tested up to: 6.1
 Requires PHP: 7.4
 Stable tag: 1.0.0
 License: GPLv2 or later
