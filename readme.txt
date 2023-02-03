@@ -19,9 +19,10 @@ Please use the either the [support](https://wordpress.org/support/plugin/kin-ico
 
 == Screenshots ==
 
-1. Settings, upload the .zip file with the font icons downloaded from Icomoon site
-2. Create a new field
-3. Select an icon from the list
+1. Settings, upload the .zip file with the font icons downloaded from Icomoon site.
+2. If uploaded with success, you will see a list below the upload btn, with the font files.
+3. Create a new field.
+4. Select an icon from the list.
 
 == Changelog ==
 
