@@ -84,10 +84,7 @@ class Kin_Icon_Picker_Admin
          */
 
         wp_enqueue_style( $this->plugin_name, "{$this->assetsUrl}css/admin.css", array(), $this->version, 'all' );
-
-        if (file_exists("{$this->uploaded_config['url']}/style.css")) {
-            wp_enqueue_style( 'kin-icon-picker-css', "{$this->uploaded_config['url']}/style.css", array(), $this->version, 'all' );
-        }
+        wp_enqueue_style( 'kin-icon-picker-css', "{$this->uploaded_config['url']}/style.css", array(), $this->version, 'all' );
     }
 
     /**
